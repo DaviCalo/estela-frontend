@@ -22,7 +22,7 @@ const Login = () => {
                 <button id="login-button" class="button-stitch button-stitch-selected">Login</button>
                 <button id="register-button" class="button-stitch button-stitch-unselected">Criar conta</button>
             </div>
-            <div class="form-group">
+            <form class="form-group">
                 <label for="email" class="form-label">Email:</label>
                 <div class="input-wrapper">
                     <span class="input-icon">@</span>
@@ -54,7 +54,12 @@ const Login = () => {
                     <label for="remember-login-checkbox" class="text-small-regular">Lembrar</label>
                 </div>
                 <a href="https://secure.nuuvem.com/br-en/account/forgot-password">Esqueci minnha senha</a>
-            </div>
+                <button type="submit" class="button-stitch" onClick={handleSubmit}>Entrar</button>
+            </form>
+            <search id="terms">
+                <a href="https://www.nuuvem.com/br-en/privacy">Termos de Uso</a>
+                <a href="https://www.nuuvem.com/br-en/privacy">Política de Privacidade</a>
+            </search>
         </section>
     </div>
   );

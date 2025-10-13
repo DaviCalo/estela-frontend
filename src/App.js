@@ -1,9 +1,10 @@
 import './App.css';
 import Login from './components/login/Login';
+import './global.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" id ="app">
       <main>
         <Login />
       </main>

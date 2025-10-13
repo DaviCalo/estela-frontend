@@ -1,12 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Lobster&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --background-color: radial-gradient(60.42% 42.19% at 50% 79.17%, #0B1950 0%, #110535 100%);
+  --secondary: #222559;
+}
+
+#root, #app, main{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  background: var(--background-color);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .button-stitch{ 
   font-family: "Gabarito";
   font-optical-sizing: auto;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 16px;
   font-style: normal;
-  padding: 10px 20px;
+  padding: 4px 18px;
   border-radius: 25px;
   border: none;
 }
@@ -19,9 +48,4 @@
 .button-stitch-unselected{ 
     color: #596687;
     background-color: #05122D;
-}
-
-:root {
-  --background-color: radial-gradient(60.42% 42.19% at 50% 79.17%, #0B1950 0%, #110535 100%);
-  --secondary: #222559;
 }
