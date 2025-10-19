@@ -4,9 +4,44 @@
     display: flex;
     justify-content: space-between;
     width: 100vw;
+    height: fill;
 }
 
 #content {
-    background-color: red;
-    width: 75%;
+    position: relative;
+    width: 75vw;
+}
+
+#banner-image {
+    position: relative;
+    z-index: auto;
+    background-image: url('../../../src/images/bannerhk.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: fill;
+    -webkit-mask-image: linear-gradient( #fff, rgba(0, 0, 0, 0));
+    mask-image: linear-gradient( #fff, rgba(0, 0, 0, 0));
+}
+
+#cards-wrapper {
+    position: absolute;
+    z-index: 1;
+    top: 75%;
+    left: 15%;
+    right: 15%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow: scroll;
+}
+
+#cards-container {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    overflow: hidden;
+    width: auto;
 }

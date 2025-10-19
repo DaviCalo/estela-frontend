@@ -13,14 +13,20 @@
   --accent:69, 85, 146;
 }
 
-p {
+p, h1, h2, h3, h4, h5, h6 {
   color: rgb(var(--Accent));
   font-family: Gabarito;
-  font-size: 16px;
   font-style: normal;
-  font-weight: 800;
   line-height: normal;
-  text-transform: uppercase;
+};
+
+h1 {
+    font-weight: 800;
+    font-size: 48px;
+}
+
+p {
+    font-size: 16px;
 }
 
 #root, #app, main{

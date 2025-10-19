@@ -1,0 +1,7 @@
+@import url('../../global.css');
+
+#wrapper {
+    width: 500px;
+    height: 200px;
+    background-color: aqua;
+}

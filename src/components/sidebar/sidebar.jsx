@@ -25,7 +25,6 @@ const Sidebar = () => {
                 </div>
                 
             <div id="sidebar-games-wrapper">
-                <hr></hr>
                 <p>MEUS JOGOS</p>
                 <Gamecard />
                 <Gamecard />
