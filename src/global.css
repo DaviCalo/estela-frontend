@@ -8,7 +8,19 @@
 
 :root {
   --background-color: radial-gradient(60.42% 42.19% at 50% 79.17%, #0B1950 0%, #110535 100%);
-  --secondary: #222559;
+  --secondary: 34, 37, 89;
+  --white: 199, 193, 232;
+  --accent:69, 85, 146;
+}
+
+p {
+  color: rgb(var(--Accent));
+  font-family: Gabarito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  text-transform: uppercase;
 }
 
 #root, #app, main{
@@ -17,6 +29,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: rgb(var(--white));
 }
 
 main {
@@ -40,9 +53,13 @@ main {
   border: none;
 }
 
+button{
+  height: 40px;
+}
+
 .button-stitch-selected{ 
     color: #05122D;
-    background-color: #F2F2F4;
+    background-color: var(--white);
 }
 
 .button-stitch-unselected{ 

@@ -1,12 +1,13 @@
 import './App.css';
-import Login from './components/login/Login';
+import Home from './components/home/home.jsx';
+import Login from './components/login/Login.jsx';
 import './global.css';
 
 function App() {
   return (
-    <div className="App" id ="app">
+    <div className="App" id="app">
       <main>
-        <Login />
+        <Home />
       </main>
     </div>
   );

@@ -1,0 +1,12 @@
+@import url('../../global.css');
+
+#full  {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+}
+
+#content {
+    background-color: red;
+    width: 75%;
+}

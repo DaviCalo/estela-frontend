@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import './login.css';
-import logo from '../../../public/images/logo.png';
+import logo from '../../../src/images/logo.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -53,8 +53,10 @@ const Login = () => {
                     <input type="checkbox" name="remember-login" id="remember-login-checkbox"/>
                     <label for="remember-login-checkbox" class="text-small-regular">Lembrar</label>
                 </div>
-                <a href="https://secure.nuuvem.com/br-en/account/forgot-password">Esqueci minnha senha</a>
+                <div class="confirm-button">
+                <a href="https://secure.nuuvem.com/br-en/account/forgot-password">Esqueci minha senha</a>
                 <button type="submit" class="button-stitch" onClick={handleSubmit}>Entrar</button>
+                </div>
             </form>
             <search id="terms">
                 <a href="https://www.nuuvem.com/br-en/privacy">Termos de Uso</a>
