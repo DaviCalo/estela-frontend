@@ -1,47 +1,55 @@
 @import url('../../global.css');
 
-#full  {
-    display: flex;
-    justify-content: space-between;
+#full{
     width: 100vw;
-    height: fill;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    justify-content: center;
+    white-space: nowrap;
 }
 
-#content {
-    position: relative;
+#content{
+    z-index: 2;
     width: 75vw;
+    height: 200vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: -20vw;
 }
 
-#banner-image {
-    position: relative;
-    z-index: auto;
-    background-image: url('../../../src/images/bannerhk.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+#banner-image{
+    background-color: beige;
     width: 100%;
-    height: fill;
+    height: 600px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 30px;
     -webkit-mask-image: linear-gradient( #fff, rgba(0, 0, 0, 0));
     mask-image: linear-gradient( #fff, rgba(0, 0, 0, 0));
 }
 
-#cards-wrapper {
-    position: absolute;
-    z-index: 1;
-    top: 75%;
-    left: 15%;
-    right: 15%;
-    text-align: left;
+#content-wrapper{
+    position: relative;
+    bottom: +8vw;
+    width: 80%;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    overflow: scroll;
+    align-items: start;
+    gap: 4px;
 }
 
-#cards-container {
-    align-items: center;
+#card-wrapper{
+    width: 100%;
+    height: fit-content;
     display: flex;
-    gap: 20px;
-    overflow: hidden;
-    width: auto;
+    flex-direction: row;
+    align-content: start;
+    gap: 12px;
+    margin-top: 10px;
+    overflow: auto;
+    white-space: nowrap;
+    scrollbar-color: #000077 #bada55;
 }
