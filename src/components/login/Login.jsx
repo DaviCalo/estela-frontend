@@ -1,16 +1,56 @@
 
 import React, { useState } from 'react';
 import './login.css';
-import logo from '../../../src/images/logo.png';
+import logo from '../../images/logo.png';
+import { ReactComponent as LockIcon } from '../../assets/icons/lock-keyhole.svg';
+import { ReactComponent as EmailIcon } from '../../assets/icons/at.svg';
+import { ReactComponent as JoystickIcon } from '../../assets/icons/joystick.svg';
+import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [emailRegister, setEmailRegister] = useState('');
+  const [passwordRegister, setPasswordRegister] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Dados submetidos:', { email, password });
   };
+
+  const changeToSingIn = () => {
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('singup-form');
+    const loginButton = document.getElementById('login-button');
+    const registerButton = document.getElementById('register-button');
+
+    if (loginForm.classList.contains('display-hidden')) {
+        loginForm.classList.remove('display-hidden');
+        registerForm.classList.add('display-hidden');
+        loginButton.classList.remove('button-stitch-unselected');
+        loginButton.classList.add('button-stitch-selected');
+        registerButton.classList.remove('button-stitch-selected');
+        registerButton.classList.add('button-stitch-unselected');
+    }
+  }
+
+  const changeToSingUp = () => {
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('singup-form');
+    const loginButton = document.getElementById('login-button');
+    const registerButton = document.getElementById('register-button');
+
+    if (registerForm.classList.contains('display-hidden')) {
+        loginForm.classList.add('display-hidden');
+        registerForm.classList.remove('display-hidden');
+        loginButton.classList.remove('button-stitch-selected');
+        loginButton.classList.add('button-stitch-unselected');
+        registerButton.classList.remove('button-stitch-unselected');
+        registerButton.classList.add('button-stitch-selected');
+    }
+  }
 
   return (
     <div className="login-container">
@@ -19,49 +59,130 @@ const Login = () => {
         </section>
         <section id="card">
             <div id="buttons-choice">
-                <button id="login-button" class="button-stitch button-stitch-selected">Login</button>
-                <button id="register-button" class="button-stitch button-stitch-unselected">Criar conta</button>
+                <button id="login-button" className="button-stitch button-stitch-selected" onClick={changeToSingIn}>Login</button>
+                <button id="register-button" className="button-stitch button-stitch-unselected" onClick={changeToSingUp}>Criar conta</button>
             </div>
-            <form class="form-group">
-                <label for="email" class="form-label">Email:</label>
-                <div class="input-wrapper">
-                    <span class="input-icon">@</span>
-                    <input
-                        type="email"
-                        id="email"
-                        class="form-input"
-                        placeholder="Seu email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                  />
+            <form id="login-form" className="form-group">
+                <div className="input">
+                    <label htmlFor="email" className="form-label">Email:</label>
+                    <div className="input-wrapper">
+                        <EmailIcon className="icon input-icon" aria-hidden="true" />
+                        <input
+                            type="email"
+                            id="email"
+                            className="form-input"
+                            placeholder="Seu email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                         />
+                    </div>
                 </div>
-                <label for="email" class="form-label">Senha:</label>
-                <div class="input-wrapper">
-                    <span class="input-icon">@</span>
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-input"
-                      placeholder="Sua senha"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
+                <div className="input">
+                    <label htmlFor="password" className="form-label">Senha:</label>
+                    <div className="input-wrapper">
+                        <LockIcon className="input-icon" aria-hidden="true" />
+                        <input
+                          type="password"
+                          id="password"
+                          className="form-input"
+                          placeholder="Sua senha"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                        />
+                    </div>
                 </div>
-                <div class="remember-login">
-                    <input type="checkbox" name="remember-login" id="remember-login-checkbox"/>
-                    <label for="remember-login-checkbox" class="text-small-regular">Lembrar</label>
+                <div className="remember-forgot-password">
+                    <div className="remember-password">
+                        <input type="checkbox" name="remember-login" id="remember-login" />
+                        <label htmlFor="remember-login" className="text-small-regular">Lembrar</label>
+                    </div>
+                    <a href="https://secure.nuuvem.com/br-en/account/forgot-password">Esqueci minha senha</a>
+                </div>  
+                <div className="confirm-button">
+                  <button type="submit" className="button" onClick={handleSubmit}>Entrar</button>
                 </div>
-                <div class="confirm-button">
-                <a href="https://secure.nuuvem.com/br-en/account/forgot-password">Esqueci minha senha</a>
-                <button type="submit" class="button-stitch" onClick={handleSubmit}>Entrar</button>
-                </div>
+                <section id="terms">
+                    <a href="https://www.nuuvem.com/br-en/privacy">Termos de Uso</a>
+                    <a href="https://www.nuuvem.com/br-en/privacy">Política de Privacidade</a>
+                </section>
             </form>
-            <search id="terms">
-                <a href="https://www.nuuvem.com/br-en/privacy">Termos de Uso</a>
-                <a href="https://www.nuuvem.com/br-en/privacy">Política de Privacidade</a>
-            </search>
+            <form id="singup-form" className="form-group display-hidden">
+                <div className="input">
+                    <label htmlFor="name" className="form-label">Nome:</label>
+                    <div className="input-wrapper">
+                        <UserIcon className="icon input-icon" aria-hidden="true" />
+                        <input
+                            type="text"
+                            id="name"
+                            className="form-input"
+                            placeholder="Seu nome"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                         />
+                    </div>
+                </div>
+                <div className="input">
+                    <label htmlFor="email-register" className="form-label">Email:</label>
+                    <div className="input-wrapper">
+                        <EmailIcon className="input-icon" aria-hidden="true" />
+                        <input
+                          type="email"
+                          id="email-register"
+                          className="form-input"
+                          placeholder="Seu email"
+                          value={emailRegister}
+                          onChange={(e) => setEmailRegister(e.target.value)}
+                          required
+                        />
+                    </div>
+                </div>
+                <div className="input">
+                    <label htmlFor="email-register" className="form-label">Nickname:</label>
+                    <div className="input-wrapper">
+                        <JoystickIcon className="input-icon" aria-hidden="true" />
+                        <input
+                          type="text"
+                          id="email-register"
+                          className="form-input"
+                          placeholder="Seu nickname"
+                          value={nickname}
+                          onChange={(e) => setNickname(e.target.value)}
+                          required
+                        />
+                    </div>
+                </div>
+                <div className="input">
+                    <label htmlFor="password-register" className="form-label">Senha:</label>
+                    <div className="input-wrapper">
+                        <LockIcon className="input-icon" aria-hidden="true" />
+                        <input
+                          type="password"
+                          id="password-register"
+                          className="form-input"
+                          placeholder="Sua senha"
+                          value={passwordRegister}
+                          onChange={(e) => setPasswordRegister(e.target.value)}
+                          required
+                        />
+                    </div>
+                </div>
+                <div className="tips-register">
+                    <p>Siga essas dicas</p>
+                    <ul>
+                        <li>Use ao menos 8 caracteres.</li>
+                        <li>Tente uma combinação com letras maiúsculas e minúsculas e um números</li>
+                    </ul>
+                </div>
+                <div className="confirm-button register-button">
+                    <button type="submit" className="button" onClick={handleSubmit}>Entrar</button>
+                </div>
+                <span className="text-small-regular">
+                    Ao criar uma conta, você concorda com os <a href="https://www.nuuvem.com/br-en/privacy">Termos de Uso</a> e a <a href="https://www.nuuvem.com/br-en/privacy">Política de Privacidade</a>.
+                </span>
+            </form>
         </section>
     </div>
   );

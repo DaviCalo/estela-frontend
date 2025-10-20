@@ -8,9 +8,9 @@
 
 :root {
   --background-color: radial-gradient(60.42% 42.19% at 50% 79.17%, #0B1950 0%, #110535 100%);
-  --secondary: 34, 37, 89;
+  --secondary: #222559;
   --white: 199, 193, 232;
-  --accent:69, 85, 146;
+  --accent: #455592;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -57,15 +57,12 @@ main {
   padding: 4px 18px;
   border-radius: 25px;
   border: none;
-}
-
-button{
-  height: 40px;
+  cursor: pointer;
 }
 
 .button-stitch-selected{ 
     color: #05122D;
-    background-color: var(--white);
+    background-color: #F2F2F4;
 }
 
 .button-stitch-unselected{ 
