@@ -1,6 +1,6 @@
 import './App.css';
-import Home from './components/home/home.jsx';
-import Login from './components/login/Login.jsx';
+import HomePage from './pages/home/HomePage.jsx';
+import LoginPage from './pages/login/LoginPage.jsx';
 import './global.css';
 import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App" id="app">
       <main>
-        <Home />
+        <LoginPage />
       </main>
     </div>
   );

@@ -1,13 +1,12 @@
-
 import React, { useState } from 'react';
 import './login.css';
-import logo from '../../images/logo.png';
+import logo from '../../assets/images/logo.png';
 import { ReactComponent as LockIcon } from '../../assets/icons/lock-keyhole.svg';
 import { ReactComponent as EmailIcon } from '../../assets/icons/at.svg';
 import { ReactComponent as JoystickIcon } from '../../assets/icons/joystick.svg';
 import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
 
-const Login = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -188,4 +187,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

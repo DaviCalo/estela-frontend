@@ -1,11 +1,11 @@
 import React from "react";
 import './home.css';
-import logo from '../../../src/images/logo.png';
-import Sidebar from '../sidebar/sidebar.jsx';
-import Cardhome from '../card/cardhome.jsx';
-import banner from '../../images/bannerhk.png';
+import logo from '../../assets/images/logo.png';
+import Sidebar from '../../components/sidebar/sidebar.jsx';
+import Cardhome from '../../components/card/cardhome.jsx';
+import banner from '../../assets/images/bannerhk.png';
 
-const Home = () => {
+const HomePage = () => {
     return (
         <div className="home-container">
             <div id="full">
@@ -30,4 +30,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomePage;
