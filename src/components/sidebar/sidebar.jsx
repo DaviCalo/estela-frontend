@@ -1,6 +1,6 @@
 import './sidebar.css';
 import React from "react";
-import logo from '../../../src/images/logo.png';
+import logo from '../../../src/assets/images/logo.png';
 import Gamecard from '../card/gamecard.jsx';
 
 
