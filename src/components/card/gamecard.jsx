@@ -1,4 +1,4 @@
-import cs from '../../../src/images/cs.png';
+import cs from '../../../src/assets/images/cs.png';
 import React from "react";
 import './gamecard.css';
 
