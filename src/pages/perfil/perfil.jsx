@@ -1,3 +1,4 @@
+import React from "react";
 import Sidebar from "../../components/sidebar/sidebar";
 import imgperfil from "../../assets/images/imgperfil.png"
 
