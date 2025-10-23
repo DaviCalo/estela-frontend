@@ -1,16 +1,16 @@
 import React from "react";
 import Sidebar from "../../components/sidebar/sidebar";
-import imgperfil from "../../assets/images/imgperfil.png"
+import imgProfile from "../../assets/images/imgperfil.png"
 
-const PerfilPage = () => {
+const ProfilePage = () => {
 
     return (
-        <div className="perfilcontainer">
+        <div className="profilecontainer">
             <div id="full">
                 <Sidebar />
                 <div id="content">
                     <div id="namecard">
-                        <div id="img-holder" style={{ backgroundImage: `url(${imgperfil})`}}> </div>
+                        <div id="img-holder" style={{ backgroundImage: `url(${imgProfile})`}}> </div>
                     </div>
                 </div>
             </div>
@@ -18,4 +18,4 @@ const PerfilPage = () => {
     );
 };
 
-export default PerfilPage; 
+export default ProfilePage; 
