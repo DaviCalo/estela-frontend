@@ -12,7 +12,7 @@
 
 #content{
     z-index: 2;
-    width: 75vw;
+    width: 80vw;
     height: 200vw;
     display: flex;
     flex-direction: column;

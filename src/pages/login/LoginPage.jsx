@@ -102,10 +102,12 @@ const LoginPage = () => {
                 <div className="confirm-button">
                   <button type="submit" className="button" onClick={handleSubmit}>Entrar</button>
                 </div>
-                <section id="terms">
-                    <a href="https://www.nuuvem.com/br-en/privacy">Termos de Uso</a>
-                    <a href="https://www.nuuvem.com/br-en/privacy">Política de Privacidade</a>
-                </section>
+                <div className="divider" id="terms-divider">
+                    <section id="terms">
+                        <a href="https://www.nuuvem.com/br-en/privacy">Termos de Uso</a>
+                        <a href="https://www.nuuvem.com/br-en/privacy">Política de Privacidade</a>
+                    </section>
+                </div>
             </form>
             <form id="singup-form" className="form-group display-hidden">
                 <div className="input">

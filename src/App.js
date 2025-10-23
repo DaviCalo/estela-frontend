@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App" id="app">
       <main>
-        <PerfilPage />
+        <HomePage />
       </main>
     </div>
   );
