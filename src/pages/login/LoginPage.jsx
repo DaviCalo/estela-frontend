@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './login.css';
 import logo from '../../assets/images/logo.png';
+import { useNavigate } from 'react-router-dom';
+import auth from '../../api/auth';
 import { ReactComponent as LockIcon } from '../../assets/icons/lock-keyhole.svg';
 import { ReactComponent as EmailIcon } from '../../assets/icons/at.svg';
 import { ReactComponent as JoystickIcon } from '../../assets/icons/joystick.svg';
 import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -14,10 +17,21 @@ const LoginPage = () => {
   const [emailRegister, setEmailRegister] = useState('');
   const [passwordRegister, setPasswordRegister] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmitLogin = (event) => {
     event.preventDefault();
     console.log('Dados submetidos:', { email, password });
+    if(auth.login(email, password)){
+        navigate('/profile');
+    }
   };
+
+  const handleSubmitRegister = (event) => {
+    event.preventDefault();
+    if(auth.register(emailRegister, passwordRegister, name, nickname)){
+        navigate('/profile');
+    }
+  };
+
 
   const changeToSingIn = () => {
     const loginForm = document.getElementById('login-form');
@@ -100,7 +114,7 @@ const LoginPage = () => {
                     <a href="https://secure.nuuvem.com/br-en/account/forgot-password">Esqueci minha senha</a>
                 </div>  
                 <div className="confirm-button">
-                  <button type="submit" className="button" onClick={handleSubmit}>Entrar</button>
+                  <button type="submit" className="button" onClick={handleSubmitLogin}>Entrar</button>
                 </div>
                 <div className="divider" id="terms-divider">
                     <section id="terms">
@@ -178,7 +192,7 @@ const LoginPage = () => {
                     </ul>
                 </div>
                 <div className="confirm-button register-button">
-                    <button type="submit" className="button" onClick={handleSubmit}>Entrar</button>
+                    <button type="submit" className="button" onClick={handleSubmitRegister}>Entrar</button>
                 </div>
                 <span className="text-small-regular">
                     Ao criar uma conta, você concorda com os <a href="https://www.nuuvem.com/br-en/privacy">Termos de Uso</a> e a <a href="https://www.nuuvem.com/br-en/privacy">Política de Privacidade</a>.

@@ -7,9 +7,10 @@ import ProfilePage from './pages/profile/ProfilePage.jsx';
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<LoginPage />} /> {/*  o primeiro muda aqui */}
+            {/*<Route path="/" element={<HomePage />}*/}
             <Route path="/login" element={<LoginPage />} />
-             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
         </Routes>
     );
 };
