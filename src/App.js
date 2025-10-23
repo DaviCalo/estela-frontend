@@ -1,6 +1,7 @@
 import './App.css';
 import HomePage from './pages/home/HomePage.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
+import PerfilPage from './pages/perfil/perfil.jsx'
 import './global.css';
 import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ function App() {
   return (
     <div className="App" id="app">
       <main>
-        <LoginPage />
+        <PerfilPage />
       </main>
     </div>
   );
