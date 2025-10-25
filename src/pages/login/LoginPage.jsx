@@ -17,18 +17,21 @@ const LoginPage = () => {
   const [emailRegister, setEmailRegister] = useState("");
   const [passwordRegister, setPasswordRegister] = useState("");
 
-  const handleSubmitLogin = (event) => {
+  const handleSubmitLogin = async (event) => {
     event.preventDefault();
     console.log("Dados submetidos:", { email, password });
-    if (auth.login(email, password)) {
-        console.log(auth.login(email, password));
+    const isSuccess = await auth.login(email, password);
+    console.log(isSuccess);
+    if (isSuccess) {
+      console.log(auth.login(email, password));
       navigate("/profile");
     }
   };
 
-  const handleSubmitRegister = (event) => {
+  const handleSubmitRegister = async (event) => {
     event.preventDefault();
-    if (auth.register(emailRegister, passwordRegister, name, nickname)) {
+    const isSuccess = await auth.register(emailRegister, passwordRegister, name, nickname);
+    if (isSuccess) {
       navigate("/profile");
     }
   };
@@ -191,14 +194,14 @@ const LoginPage = () => {
             </div>
           </div>
           <div className="input">
-            <label htmlFor="email-register" className="form-label">
+            <label htmlFor="nick-name-register" className="form-label">
               Nickname:
             </label>
             <div className="input-wrapper">
               <JoystickIcon className="input-icon" aria-hidden="true" />
               <input
                 type="text"
-                id="email-register"
+                id="nick-name-register"
                 className="form-input"
                 placeholder="Seu nickname"
                 value={nickname}

@@ -4,14 +4,8 @@ const auth = {
     login: async (email, password) => {
         try {
             const response = await apiClient.post('/login', { email, password });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Falha no login.');
-            }
-
             document.cookie = `name=${response.data.name}; user_id=${response.data.user_id}; profile_image=${response.data.profile_image}; path=/; SameSite=Lax`;
-
+            console.log('Login bem-sucedido:', response.data);
             return true;
         } catch (error) {
             console.error('Erro durante o login:', error);
@@ -22,11 +16,6 @@ const auth = {
     register: async (email, password, name, nickname) => {
         try {
             const response = await apiClient.post('/register', { email, password, name, nickname });
-
-            if (!response.ok) {
-                throw new Error('Falha no registro.');
-            }
-
             document.cookie = `name=${response.data.name}; user_id=${response.data.user_id}; profile_image=${response.data.profile_image}; path=/; SameSite=Lax`;
         } catch (error) {
             console.error('Erro durante o login:', error);
