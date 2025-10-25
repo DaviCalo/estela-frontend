@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+<img width="187" height="43" alt="logo" src="https://github.com/user-attachments/assets/67dec6da-7341-49e3-9d24-d8129331b9cc" />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🎮 Estela - Frontend
 
-## Available Scripts
+O **Estela** é uma plataforma de e-commerce voltada para o mercado de jogos digitais, visando suprir as necessidades do público brasileiro com foco em segurança na transação e usabilidade.
 
-In the project directory, you can run:
+Este repositório contém o código-fonte do **Frontend** da aplicação.
 
-### `npm start`
+## ✨ Sobre o Projeto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+O frontend do Estela é a interface com a qual o usuário interage, permitindo a navegação, visualização de produtos, e conclusão de transações de forma intuitiva e responsiva.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Status Atual | Repositório do Backend |
+| :----------: | :--------------------: |
+| 🟡 Em Desenvolvimento | [estela-backend](https://www.google.com/search?q=https://github.com/DaviCalo/estela-backend) |
 
-### `npm test`
+## 💻 Tecnologias Utilizadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+O desenvolvimento do frontend utiliza as seguintes tecnologias:
 
-### `npm run build`
+  * **React:** Biblioteca JavaScript amplamente utilizada para a construção de interfaces de usuário dinâmicas e de alta performance.
+  * **JavaScript:** Linguagem de programação principal.
+  * **Axios:** Cliente HTTP baseado em Promises, utilizado para realizar a comunicação com o Backend (APIs REST).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O backend do projeto utiliza **Java com Servlet**.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🎨 Interface e Design
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+A interface de usuário e o design do Estela foram concebidos no Figma. Você pode visualizar o protótipo e as telas da aplicação através do link abaixo:
 
-### `npm run eject`
+  * **Figma:** [Ecommerce de jogos - Estela - Web V1](https://www.figma.com/design/1RnkGlxjy5fKEwm4NjWzrn/Ecommerce-de-jogos--Estela----Web-V1?node-id=384-855&t=tzFK48ysvpERirLg-1)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📋 Pré-requisitos
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Para executar o projeto frontend localmente, você precisará ter instalado:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  * **Node.js e npm** (ou **Yarn** / **pnpm**)
+  * Um navegador web (e.g., Chrome, Firefox)
+  * Um editor de código (e.g., VS Code)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🚀 Como Executar
 
-## Learn More
+Siga os passos abaixo para clonar o repositório e iniciar a aplicação em seu ambiente local.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 1\. Clonando o Repositório
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Abra o terminal e execute os comandos:
 
-### Code Splitting
+```bash
+git clone https://github.com/DaviCalo/estela-frontend.git
+cd estela-frontend
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 2\. Instalação das Dependências
 
-### Analyzing the Bundle Size
+Instale as dependências do projeto usando seu gerenciador de pacotes preferido:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+# Se estiver usando npm
+npm install
 
-### Making a Progressive Web App
+# Ou se estiver usando Yarn
+yarn install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 3\. Executando o Frontend
 
-### Advanced Configuration
+Inicie o servidor de desenvolvimento do React:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+npm start
 
-### Deployment
+# Ou
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+yarn start
+```
 
-### `npm run build` fails to minify
+A aplicação será aberta automaticamente em seu navegador em `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> **Nota:** Este projeto é dependente do [backend do Estela](https://www.google.com/search?q=https://github.com/DaviCalo/estela-backend) para o funcionamento completo da comunicação via API (usando Axios). Certifique-se de que o backend também esteja configurado e em execução.
+
+## 🤝 Contribuições
+
+Este projeto está em desenvolvimento e futuras atualizações serão feitas para aprimorar o seu funcionamento. Se você deseja contribuir, sinta-se à vontade para abrir uma *issue* ou um *pull request*.
+
+## 📄 Modelo Entidade-Relacional (MER)
+
+Para referência do banco de dados e estrutura de dados, o Modelo Entidade-Relacional (MER) pode ser consultado na pasta compartilhada:
+
+  * **MER:** [Pasta Google Drive](https://drive.google.com/drive/folders/12gjjoFcI_ZeQSz4jaWWYUB2FkQNZXMsA)
