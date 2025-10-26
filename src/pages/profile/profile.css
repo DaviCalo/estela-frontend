@@ -8,6 +8,7 @@
     align-items: top;
     justify-content: center;
     white-space: nowrap;
+    overflow-y: hidden;
 }
 
 #content{

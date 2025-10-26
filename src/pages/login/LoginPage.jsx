@@ -20,17 +20,22 @@ const LoginPage = () => {
   const handleSubmitLogin = async (event) => {
     event.preventDefault();
     console.log("Dados submetidos:", { email, password });
-    const isSuccess = await auth.login(email, password);
-    console.log(isSuccess);
-    if (isSuccess) {
-      console.log(auth.login(email, password));
+    const response = await auth.login(email, password);
+    if (response) {
       navigate("/profile");
+    } else {
+      alert("Falha no login. Verifique suas credenciais.");
     }
   };
 
   const handleSubmitRegister = async (event) => {
     event.preventDefault();
-    const isSuccess = await auth.register(emailRegister, passwordRegister, name, nickname);
+    const isSuccess = await auth.register(
+      emailRegister,
+      passwordRegister,
+      name,
+      nickname
+    );
     if (isSuccess) {
       navigate("/profile");
     }
@@ -136,7 +141,7 @@ const LoginPage = () => {
                 Lembrar
               </label>
             </div>
-            <a href="https://secure.nuuvem.com/br-en/account/forgot-password">
+            <a href="#">
               Esqueci minha senha
             </a>
           </div>
@@ -151,8 +156,8 @@ const LoginPage = () => {
           </div>
           <div className="divider" id="terms-divider">
             <section id="terms">
-              <a href="https://www.nuuvem.com/br-en/privacy">Termos de Uso</a>
-              <a href="https://www.nuuvem.com/br-en/privacy">
+              <a href="#">Termos de Uso</a>
+              <a href="#">
                 Política de Privacidade
               </a>
             </section>
@@ -248,8 +253,8 @@ const LoginPage = () => {
           </div>
           <span className="text-small-regular">
             Ao criar uma conta, você concorda com os{" "}
-            <a href="https://www.nuuvem.com/br-en/privacy">Termos de Uso</a> e a{" "}
-            <a href="https://www.nuuvem.com/br-en/privacy">
+            <a href="#">Termos de Uso</a> e a{" "}
+            <a href="#">
               Política de Privacidade
             </a>
             .
