@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { React, useState, useEffect } from "react";
 import "./login.css";
 import logo from "../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
 import auth from "../../api/auth";
+import localStorageManager from "../../utils/localStorageManager";
 import { ReactComponent as LockIcon } from "../../assets/icons/lock-keyhole.svg";
 import { ReactComponent as EmailIcon } from "../../assets/icons/at.svg";
 import { ReactComponent as JoystickIcon } from "../../assets/icons/joystick.svg";
@@ -73,6 +74,12 @@ const LoginPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (localStorageManager.getLoggedInUserFromLocalStorage() != null) {
+      //navigate("/profile");
+    }
+  });
+
   return (
     <div className="login-container">
       <section id="logo">
@@ -141,9 +148,7 @@ const LoginPage = () => {
                 Lembrar
               </label>
             </div>
-            <a href="#">
-              Esqueci minha senha
-            </a>
+            <a href="#">Esqueci minha senha</a>
           </div>
           <div className="confirm-button">
             <button
@@ -157,9 +162,7 @@ const LoginPage = () => {
           <div className="divider" id="terms-divider">
             <section id="terms">
               <a href="#">Termos de Uso</a>
-              <a href="#">
-                Política de Privacidade
-              </a>
+              <a href="#">Política de Privacidade</a>
             </section>
           </div>
         </form>
@@ -254,10 +257,7 @@ const LoginPage = () => {
           <span className="text-small-regular">
             Ao criar uma conta, você concorda com os{" "}
             <a href="#">Termos de Uso</a> e a{" "}
-            <a href="#">
-              Política de Privacidade
-            </a>
-            .
+            <a href="#">Política de Privacidade</a>.
           </span>
         </form>
       </section>

@@ -4,39 +4,51 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Gabarito", sans-serif;
 }
 
 :root {
   --background-color: radial-gradient(60.42% 42.19% at 50% 79.17%, #0B1950 0%, #110535 100%);
   --secondary: #222559;
-  --white: 199, 193, 232;
+  --white: #C7C1E8;
   --accent: #455592;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
-  color: rgb(var(--Accent));
-  font-family: Gabarito;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--Accent);
+  font-family: "Gabarito", sans-serif;
   font-style: normal;
   line-height: normal;
-};
+}
+
+;
 
 h1 {
-    font-weight: 800;
-    font-size: 48px;
+  font-weight: 800;
+  font-size: 48px;
 }
 
 p {
-    font-size: 16px;
+  font-size: 16px;
 }
 
-#root, #app, main{
+#root,
+#app,
+main {
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgb(var(--white));
+  color: var(--white);
   overflow-y: hidden;
+
 }
 
 main {
@@ -49,7 +61,7 @@ main {
   justify-content: flex-start;
 }
 
-.button-stitch{ 
+.button-stitch {
   font-family: "Gabarito";
   font-optical-sizing: auto;
   font-weight: 700;
@@ -61,12 +73,12 @@ main {
   cursor: pointer;
 }
 
-.button-stitch-selected{ 
-    color: #05122D;
-    background-color: #F2F2F4;
+.button-stitch-selected {
+  color: #05122D;
+  background-color: #F2F2F4;
 }
 
-.button-stitch-unselected{ 
-    color: #596687;
-    background-color: #05122D;
+.button-stitch-unselected {
+  color: #596687;
+  background-color: #05122D;
 }
