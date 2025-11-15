@@ -1,11 +1,11 @@
 import React from "react";
 import "./inforblock.css";
 
-function InfoBlock({ label, name, value, onChange }) {
+function InfoBlock({ label, name, value, onChange, type }) {
   return (
     <div className="info-block">
       <label className="label">{label}</label>
-      <input type="text" name={name} value={value || ""} onChange={onChange} />
+      <input className="info-block-input" type={type} name={name} value={value || ""} onChange={onChange} />
     </div>
   );
 }

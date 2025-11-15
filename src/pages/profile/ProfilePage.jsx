@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as PencilIcon } from "../../assets/icons/bxs-pencil.svg";
+import { ReactComponent as PencilIcon } from "../../assets/icons/pencil.svg";
 import { ReactComponent as IconTrash } from "../../assets/icons/trash.svg";
 import { ReactComponent as IconLogout } from "../../assets/icons/arrow-out-right-square-half.svg";
-import InfoBlock from "../../components/profile/inforblock";
+import InfoBlock from "../../components/inforblock/inforblock";
+import InfoBlockPassoword from "../../components/inforblock/infoblockpassword";
 import Sidebar from "../../components/sidebar/sidebar";
 import Dialog from "../../components/Dialog/dialog";
 import localStorageManager from "../../utils/localStorageManager";
@@ -19,9 +20,9 @@ const ProfilePage = () => {
   const [userNick, setUserNick] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
   const [userPassword, setUserPassword] = useState(null);
-  const navigator = useNavigate();
   const fileInputRef = useRef(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const navigator = useNavigate();
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -179,20 +180,23 @@ const ProfilePage = () => {
                 name="name"
                 value={userName}
                 onChange={handleNameChange}
+                type="text"
               />
               <InfoBlock
                 label="Nickname:"
                 name="nickname"
                 value={userNick}
                 onChange={handleNickNameChange}
+                type="text"
               />
               <InfoBlock
                 label="Email:"
                 name="email"
                 value={userEmail}
                 onChange={handleEmailChange}
+                type="email"
               />
-              <InfoBlock
+              <InfoBlockPassoword
                 label="Senha:"
                 name="senha"
                 value={userPassword}

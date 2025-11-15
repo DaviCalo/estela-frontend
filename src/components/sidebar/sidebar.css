@@ -38,6 +38,7 @@
 
 #sidebar-button{
     background-color: transparent; /*Tirar quando os botões ficarem funcionais*/
+    margin: 0;
     color: rgb(var(--white));
     height: 50px;
     width: 100%;
