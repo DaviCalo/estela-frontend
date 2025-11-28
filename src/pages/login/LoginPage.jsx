@@ -29,7 +29,13 @@ const LoginPage = () => {
     console.log("Dados submetidos:", { email, password });
     const response = await auth.login(email, password);
     if (response) {
-      navigate("/profile");
+      const user = localStorageManager.getLoggedInUserFromLocalStorage();
+      console.log(user);
+      if (user.isADM) {
+        navigate("/adm/games");
+      } else {
+        navigate("/profile");
+      }
     } else {
       alert("Falha no login. Verifique suas credenciais.");
     }
@@ -44,12 +50,19 @@ const LoginPage = () => {
       nickname
     );
     if (isSuccess) {
-      navigate("/profile");
+      const user = localStorageManager.getLoggedInUserFromLocalStorage();
+      if (user.isADM) {
+        navigate("/adm/games");
+      } else {
+        navigate("/profile");
+      }
     }
   };
 
   const inputTypePasswordLogin = isVisiblePassowordLogin ? "text" : "password";
-  const inputTypePasswordRegister = isVisiblePassowordRegister ? "text" : "password";
+  const inputTypePasswordRegister = isVisiblePassowordRegister
+    ? "text"
+    : "password";
 
   const toggleVisibilityLoginPassword = () => {
     setisVisiblePasswordLogin((prev) => !prev);
@@ -88,7 +101,12 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (localStorageManager.getLoggedInUserFromLocalStorage() != null) {
-      //navigate("/profile");
+      const user = localStorageManager.getLoggedInUserFromLocalStorage();
+      if (user.isADM) {
+        navigate("/adm/games");
+      } else {
+        navigate("/profile");
+      }
     }
   });
 
@@ -267,7 +285,11 @@ const LoginPage = () => {
                   type="button"
                   className="toggle-password"
                 >
-                  {isVisiblePassowordRegister ? <EyesIcon className="input-icon"/> : <EyesSlashIcon className="input-icon"/>}
+                  {isVisiblePassowordRegister ? (
+                    <EyesIcon className="input-icon" />
+                  ) : (
+                    <EyesSlashIcon className="input-icon" />
+                  )}
                 </button>
               </div>
             </div>
