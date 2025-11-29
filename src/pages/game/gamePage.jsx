@@ -1,12 +1,12 @@
 import React from "react";
 import './gamePage.css';
-import SidebarAdm from '../../../components/sidebar/sidebarAdm.jsx';
+import Sidebar from '../../components/sidebar/sidebar.jsx';
 
 const GamePage = () => {
     return (
         <div className="home-container">
             <div id="full">
-                <SidebarAdm />
+                <Sidebar activeItem="games" />
                 <div id="content">
                    
                 </div>

@@ -141,7 +141,7 @@ const ProfilePage = () => {
   return (
     <div className="profilecontainer">
       <div id="full">
-        <Sidebar />
+        <Sidebar activeItem="profile" />
         <div id="content">
           <div id="namecard">
             <div id="img-input">

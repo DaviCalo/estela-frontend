@@ -3,8 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/home/HomePage.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
 import ProfilePage from './pages/profile/ProfilePage.jsx';
-import DashboardPage from './pages/admPages/dashboard/reportsPage.jsx';
-import GamePage from './pages/admPages/game/gamePage.jsx';
+import DashboardPage from './pages/Reports/reportsPage.jsx';
+import GamePage from './pages/game/gamePage.jsx';
 
 const AppRoutes = () => {
     return (

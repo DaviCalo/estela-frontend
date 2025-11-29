@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import auth from "../../api/auth";
-import localStorageManager from "../../utils/localStorageManager";
 import logo from "../../assets/images/logo.png";
 import { ReactComponent as LockIcon } from "../../assets/icons/lock-keyhole.svg";
 import { ReactComponent as EmailIcon } from "../../assets/icons/at.svg";
@@ -29,13 +28,7 @@ const LoginPage = () => {
     console.log("Dados submetidos:", { email, password });
     const response = await auth.login(email, password);
     if (response) {
-      const user = localStorageManager.getLoggedInUserFromLocalStorage();
-      console.log(user);
-      if (user.isADM) {
-        navigate("/adm/games");
-      } else {
-        navigate("/profile");
-      }
+      navigate("/home");
     } else {
       alert("Falha no login. Verifique suas credenciais.");
     }
@@ -50,12 +43,7 @@ const LoginPage = () => {
       nickname
     );
     if (isSuccess) {
-      const user = localStorageManager.getLoggedInUserFromLocalStorage();
-      if (user.isADM) {
-        navigate("/adm/games");
-      } else {
-        navigate("/profile");
-      }
+      navigate("/home");
     }
   };
 
@@ -98,17 +86,6 @@ const LoginPage = () => {
     setLogin(false);
     chargeButton(false);
   };
-
-  useEffect(() => {
-    if (localStorageManager.getLoggedInUserFromLocalStorage() != null) {
-      const user = localStorageManager.getLoggedInUserFromLocalStorage();
-      if (user.isADM) {
-        navigate("/adm/games");
-      } else {
-        navigate("/profile");
-      }
-    }
-  });
 
   useEffect(() => {
     chargeButton(isLogin);

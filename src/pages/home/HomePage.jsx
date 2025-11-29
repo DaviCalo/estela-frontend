@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./home.css";
-import logo from "../../assets/images/logo.png";
-import Sidebar from "../../components/sidebar/sidebar.jsx";
 import Cardhome from "../../components/card/cardhome.jsx";
 import banner from "../../assets/images/bannerhk.png";
 import game from "../../api/game.js";
+import Sidebar from "../../components/sidebar/sidebar.jsx";
 
 const HomePage = () => {
   const [listOfGames, setListOfGames] = useState(null);
@@ -14,7 +13,6 @@ const HomePage = () => {
       try {
         const games = await game.getAllGame();
         setListOfGames(games);
-        console.log(games);
       } catch (error) {
         console.error("Error fetching games:", error);
       }
@@ -25,7 +23,7 @@ const HomePage = () => {
   return (
     <div className="home-container">
       <div id="full">
-        <Sidebar />
+        <Sidebar activeItem="store" />
         <div id="content">
           <div
             id="banner-image"
