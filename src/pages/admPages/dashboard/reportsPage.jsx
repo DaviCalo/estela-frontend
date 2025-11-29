@@ -1,8 +1,8 @@
 import React from "react";
-import './dashboardPage.css';
+import './reportsPage.css';
 import SidebarAdm from '../../../components/sidebar/sidebarAdm.jsx';
 
-const DashboardPage = () => {
+const ReportsPage = () => {
     return (
         <div className="home-container">
             <div id="full">
@@ -15,4 +15,4 @@ const DashboardPage = () => {
     );
 };
 
-export default DashboardPage;
+export default ReportsPage;

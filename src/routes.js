@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/home/HomePage.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
 import ProfilePage from './pages/profile/ProfilePage.jsx';
-import DashboardPage from './pages/admPages/dashboard/dashboardPage.jsx';
+import DashboardPage from './pages/admPages/dashboard/reportsPage.jsx';
 import GamePage from './pages/admPages/game/gamePage.jsx';
 
 const AppRoutes = () => {
@@ -14,7 +14,7 @@ const AppRoutes = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile" element={<ProfilePage />} />
 
-            <Route path="/adm/dashboard" element={<DashboardPage />} />
+            <Route path="/adm/reports" element={<DashboardPage />} />
             <Route path="/adm/games" element={<GamePage />} />
         </Routes>
     );

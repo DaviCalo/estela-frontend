@@ -1,19 +1,27 @@
 import React from "react";
-import './cardhome.css';
-import gameHomeImg from '../../assets/images/game-home-img.png';
+import game from "../../api/game.js";
+import "./cardhome.css";
 
-const Cardhome = () => {
-    return (
-        <div id="wrapper">
-            <div id="imgholder"></div>
-            <div id="gameinfo">
-                <div id="img" style={{ backgroundImage: `url(${gameHomeImg})` }}>
-                </div>
-                <strong>Nome do Jogo</strong>
-                <p>Preço</p>
-            </div>
-        </div>
-    );
+const Cardhome = ({ name, price, coverUrl }) => {
+  const coverImageUrl = game.getUrlCover(coverUrl);
+  const priceBr = formatter.format(price);
+  return (
+    <div className="wrapper-card">
+      <div className="img-cover-game">
+        <img src={coverImageUrl} alt="" className="imgCover" />
+      </div>
+      <div className="game-info">
+        <strong>{name}</strong>
+        <p>{`R$ ${priceBr}`}</p>
+      </div>
+    </div>
+  );
 };
+
+const formatter = new Intl.NumberFormat("pt-BR", {
+  style: "decimal",
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
 
 export default Cardhome;

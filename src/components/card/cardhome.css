@@ -1,6 +1,6 @@
 @import url('../../global.css');
 
-#wrapper {
+.wrapper-card {
     width: 500px;
     min-width: 500px;
     height: 100px;
