@@ -1,0 +1,103 @@
+.game-table-container {
+  width: 100%;
+  background-color: #374151; 
+  border-radius: 12px;
+  overflow: visible;
+  font-family: "Gabarito", sans-serif;
+}
+
+.game-table-component {
+  width: 100%;
+  border-collapse: collapse;
+  color: #C7C1E8;
+}
+
+.game-table-component thead th {
+  text-align: left;
+  padding: 12px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #D1D0BC;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(199, 193, 232, 0.1);
+}
+
+
+.game-row {
+  transition: background-color 0.2s;
+  text-align: left;
+  background-color: #1F2937;
+  border-bottom: 1px solid rgba(199, 193, 232, 0.05);
+}
+
+.game-row:hover {
+  background-color: rgba(69, 85, 146, 0.1);
+}
+
+.game-row td {
+  padding: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  vertical-align: middle;
+}
+
+.action-cell {
+  width: 30px;
+  text-align: right;
+  position: relative;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #C7C1E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.action-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.action-menu {
+  position: absolute;
+  right: 100%; 
+  top: 10px;
+  background-color: #1a1a2e;
+  border: 1px solid #455592;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  min-width: 120px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  color: #fff;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #2e2e4d;
+}
+
+.menu-icon {
+  width: 16px;
+  height: 16px;
+}

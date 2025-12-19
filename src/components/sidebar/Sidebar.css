@@ -1,0 +1,75 @@
+@import url('../../global.css');
+
+#sidebar {
+    width: 20vw;
+    min-width: 250px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    flex-shrink: 0;
+    gap: 50px;
+    background: rgba(var(--accent), 0.2);
+}
+
+#Logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#sidebar-button-wrapper {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+#button-wrapper {
+    color: rgb(var(--white));
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 12px;
+    gap: 12px;
+    border-bottom: 1px solid rgb(var(--accent));
+}
+
+#sidebar-button {
+    background-color: transparent;
+    /*Tirar quando os botões ficarem funcionais*/
+    margin: 0;
+    color: rgb(var(--gray));
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    padding: 0px;
+    border-radius: 0px;
+    text-align: left;
+}
+
+#sidebar-games-wrapper {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.active {
+    background-color: rgba(32, 37, 69, 0.9);
+    color: rgba(32, 37, 69, 0.9);
+}
+
+.active > .button-stitch {
+    color: rgba(32, 37, 69, 0.9);
+    background-color: hsl(210, 100%, 30%);
+}
+
+.hovered:not(.active) {
+    background-color: rgba(32, 37, 69, 0.9);
+    cursor: pointer;
+}

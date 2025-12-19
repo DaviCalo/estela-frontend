@@ -1,0 +1,17 @@
+@import url('../../global.css');
+
+#game-card{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    background-color: rgba(var(--secondary), 0.2);
+    color: rgb(var(--white));
+}
+
+.game-card > img{
+    width: 50px;
+    height: auto;
+    margin-right: 15px;
+}

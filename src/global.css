@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Lobster&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gabarito", sans-serif;
+}
+
+:root {
+  --background-color: radial-gradient(60.42% 42.19% at 50% 79.17%, #0B1950 0%, #110535 100%);
+  --secondary: #222559;
+  --white: #C7C1E8;
+  --accent: #455592;
+  --gray: #5C5E79;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--Accent);
+  font-family: "Gabarito", sans-serif;
+  font-style: normal;
+  line-height: normal;
+}
+
+;
+
+h1 {
+  font-weight: 800;
+  font-size: 48px;
+}
+
+p {
+  font-size: 16px;
+}
+
+#root,
+#app,
+main {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  overflow-y: hidden;
+}
+
+main {
+  background: var(--background-color);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.button-stitch {
+  font-family: "Gabarito";
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-size: 16px;
+  font-style: normal;
+  padding: 4px 18px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+}
+
+.button-stitch-selected {
+  color: #05122D;
+  background-color: #F2F2F4;
+}
+
+.button-stitch-unselected {
+  color: #596687;
+  background-color: #05122D;
+}
+
+.title-page{
+  color: var(--white);
+  font-family: "Gabarito", sans-serif;
+  font-size: 28px;
+}
