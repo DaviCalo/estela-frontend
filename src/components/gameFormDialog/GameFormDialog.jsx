@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Apigame from "../../api/ApiGame.js";
 import InputTextFormGame from "./InputTextFormGame.jsx";
-import defaultCoverImg from "../../assets/images/cover-game.png";
-import defaultIconImg from "../../assets/images/icon-game.png";
+import DefaultCoverImg from "../../assets/images/cover-game.png";
+import DefaultIconImg from "../../assets/images/icon-game.png";
+import DefaultMediaImg from "../../assets/images/media-game.png";
 import InputCategorySelectGame from "../inputCategoryGame/InputCategorySelectGame.jsx";
 import "./GameFormDialog.css";
 
@@ -27,11 +28,11 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
   const [indexStep, setIndexStep] = useState(0);
   const coverInputRef = useRef(null);
   const iconInputRef = useRef(null);
-  const [previewCoverUrl, setPreviewCoverUrl] = useState(defaultCoverImg);
-  const [previewUrlIcon, setPreviewUrlIcon] = useState(defaultIconImg);
+  const [previewCoverUrl, setPreviewCoverUrl] = useState(DefaultCoverImg);
+  const [previewUrlIcon, setPreviewUrlIcon] = useState(DefaultIconImg);
   const mediaInputRefs = useRef([]);
   const [mediaPreviews, setMediaPreviews] = useState(
-    Array(6).fill(defaultCoverImg)
+    Array(6).fill(DefaultMediaImg)
   );
 
   const [gameData, setGameData] = useState(initialGameData);
@@ -70,9 +71,9 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
         fetchGameDetails();
       } else {
         setGameData(initialGameData);
-        setPreviewCoverUrl(defaultCoverImg);
-        setPreviewUrlIcon(defaultIconImg);
-        setMediaPreviews(Array(6).fill(defaultCoverImg));
+        setPreviewCoverUrl(DefaultCoverImg);
+        setPreviewUrlIcon(DefaultIconImg);
+        setMediaPreviews(Array(6).fill(DefaultMediaImg));
         setIndexStep(0);
       }
     }
@@ -82,14 +83,14 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
     return () => {
       if (
         previewCoverUrl &&
-        previewCoverUrl !== defaultCoverImg &&
+        previewCoverUrl !== DefaultCoverImg &&
         !previewCoverUrl.startsWith("http")
       ) {
         URL.revokeObjectURL(previewCoverUrl);
       }
       if (
         previewUrlIcon &&
-        previewUrlIcon !== defaultIconImg &&
+        previewUrlIcon !== DefaultIconImg &&
         !previewUrlIcon.startsWith("http")
       ) {
         URL.revokeObjectURL(previewUrlIcon);
@@ -490,11 +491,11 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
           </p>
           <div>
             {indexStep > 0 ? (
-              <button className="back-btn" onClick={onBack}>
+              <button className="back-btn game-form-dialog-game" onClick={onBack}>
                 Cancelar
               </button>
             ) : null}
-            <button className="next-btn" onClick={onNext}>
+            <button className="next-btn game-form-dialog-game" onClick={onNext}>
               {indexStep === 3
                 ? gameId
                   ? "Atualizar"

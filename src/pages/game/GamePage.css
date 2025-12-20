@@ -27,14 +27,49 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 2vw;
+    margin-bottom: 1vw;
 }
 
-.game-page-container{
+.game-page-container {
     width: 80%;
-    background-color:black;
+    background-color: black;
 }
 
-button {
+.button-group-gamepage {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-categ-button-group-gamepage {
+    background-color: transparent;
+    color: var(--white-pure);
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-    background-color: var(--gray);
+    transition: border 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.edit-categ-button-group-gamepage:hover {
+    border: 1px solid var(--white-pure);
+}
+
+.add-game-button-group-gamepage {
+    background-color: var(--blue);
+    color: var(--white-pure);
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.add-game-button-group-gamepage:hover {
+    border: 1px solid var(--white-pure);
 }

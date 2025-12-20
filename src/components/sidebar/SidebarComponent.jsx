@@ -9,7 +9,7 @@ import { ReactComponent as UserIcon } from "../../assets/icons/contact-book.svg"
 import { ReactComponent as HomeIcon } from "../../assets/icons/home.svg";
 import { ReactComponent as IconHeart } from "../../assets/icons/heart.svg";
 import Gamecard from "../GameCard/GameCard.jsx";
-import localStorageManager from "../../utils/localStorageManager.js";
+import LocalStorageManager from "../../utils/LocalStorageManager.js";
 import SidebarButton from "./SidebarButton.jsx";
 import "./Sidebar.css";
 
@@ -37,8 +37,8 @@ const SidebarComponent = ({activeItem}) => {
   const [isAdm, setIsAdm] = useState(false);
 
   useEffect(() => {
-    if (localStorageManager.getLoggedInUserFromLocalStorage() != null) {
-      const user = localStorageManager.getLoggedInUserFromLocalStorage();
+    if (LocalStorageManager.getLoggedInUserFromLocalStorage() != null) {
+      const user = LocalStorageManager.getLoggedInUserFromLocalStorage();
       if (user.isADM.toLowerCase() === 'true') {
         setIsAdm(true);
       }

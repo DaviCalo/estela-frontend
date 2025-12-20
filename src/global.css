@@ -10,9 +10,11 @@
 :root {
   --background-color: radial-gradient(60.42% 42.19% at 50% 79.17%, #0B1950 0%, #110535 100%);
   --secondary: #222559;
+  --white-pure:#FFFFFF;
   --white: #C7C1E8;
   --accent: #455592;
   --gray: #5C5E79;
+  --blue:#1D4ED8;
 }
 
 p,
@@ -84,7 +86,12 @@ main {
 }
 
 .title-page{
-  color: var(--white);
+  color: var(--white-pure);
   font-family: "Gabarito", sans-serif;
-  font-size: 28px;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+button {
+    cursor: pointer;
 }

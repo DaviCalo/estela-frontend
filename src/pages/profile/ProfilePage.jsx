@@ -7,14 +7,14 @@ import InfoBlock from "../../components/inforblock/InfoBlock.jsx";
 import InfoBlockPassoword from "../../components/inforblock/InfoBlockPassoword.jsx";
 import Sidebar from "../../components/sidebar/SidebarComponent.jsx";
 import Dialog from "../../components/dialog/Dialog.jsx";
-import localStorageManager from "../../utils/localStorageManager.js";
+import LocalStorageManager from "../../utils/LocalStorageManager.js";
 import ApiUser from "../../api/ApiUser.js";
 import DefaultProfile from "../../assets/images/default.png";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
   const [userId] = useState(
-    localStorageManager.getLoggedInUserFromLocalStorage().userid || ""
+    LocalStorageManager.getLoggedInUserFromLocalStorage().userid || ""
   );
   const [profileData, setProfileData] = useState(ApiUser.getProfilePhoto(userId));
   const [userName, setUserName] = useState(null);
@@ -95,7 +95,7 @@ const ProfilePage = () => {
     ApiUser
       .logoutUser()
       .then((e) => {
-        localStorageManager.clearUserDataFromLocalStorage();
+        LocalStorageManager.clearUserDataFromLocalStorage();
         navigator("/login");
       })
       .catch((err) => {
@@ -107,7 +107,7 @@ const ProfilePage = () => {
     ApiUser
       .deleteAccount(userId)
       .then((e) => {
-        localStorageManager.clearUserDataFromLocalStorage();
+        LocalStorageManager.clearUserDataFromLocalStorage();
         navigator("/login");
       })
       .catch((err) => {

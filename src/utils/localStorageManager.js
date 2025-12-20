@@ -1,4 +1,4 @@
-const localStorageManager = {
+const LocalStorageManager = {
     saveUserDataToLocalStorage: (user) => {
         try {
             localStorage.setItem("loggedInUser", JSON.stringify(user));
@@ -30,4 +30,4 @@ const localStorageManager = {
     }
 }
 
-export default localStorageManager;
+export default LocalStorageManager;
