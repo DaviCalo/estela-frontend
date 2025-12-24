@@ -1,4 +1,5 @@
 import ApiClient from './base/ApiClient.js';
+import { unformatCurrency } from '../utils/formatters.js';
 
 const ApiGame = {
     getAllGame: async () => {
@@ -13,16 +14,15 @@ const ApiGame = {
             return false;
         }
     },
-    getUrlCover: (coverUrl) => {
-        return `${ApiClient.defaults.baseURL}/game/cover/${coverUrl}`;
+    getMediaUrl: (mediaName) => {
+        return `${ApiClient.defaults.baseURL}/game/media/${mediaName}`;
     },
     registerGame: async (gameData) => {
         try {
             const formData = new FormData();
             formData.append('name', gameData.name);
             formData.append('description', gameData.description);
-            formData.append('price', gameData.price);
-
+            formData.append('price', unformatCurrency(gameData.price.toString()));
             formData.append('categoryIds', JSON.stringify(gameData.categoryIds));
             formData.append('characteristics', gameData.characteristics);
             formData.append('hardDriveSpace', gameData.diskSpace);
@@ -32,19 +32,19 @@ const ApiGame = {
             formData.append('processor', gameData.processor);
             formData.append('coverGame', gameData.coverImage);
             formData.append('iconImage', gameData.iconImage);
-            for (let i = 0; i < gameData.media.length; i++) {
-                formData.append(`mediaGame${i}`, gameData.media[i]);
+            for (let i = 0; i < gameData.screenshots.length; i++) {
+                formData.append(`screenshots_${i}`, gameData.screenshots[i]);
             }
 
             console.log("Enviando dados do jogo:", gameData);
 
-            const response = await ApiClient.post('/game', formData, {
+            await ApiClient.post('/game', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
-            return response.data.success;
+            return true;
         } catch (error) {
             console.error("Erro ao cadastrar jogo:", error);
             return false;
@@ -55,18 +55,18 @@ const ApiGame = {
         formData.append("gameId", gameId);
 
         formData.append("name", gameData.name);
-        formData.append("price", gameData.price);
+        formData.append('price', unformatCurrency(gameData.price.toString()));
         formData.append("description", gameData.description);
-        formData.append("characteristics", gameData.caracteristics);
+        formData.append("characteristics", gameData.characteristics);
 
         formData.append("operatingSystem", gameData.operatingSystem);
         formData.append("processor", gameData.processor);
         formData.append("memory", gameData.memory);
-        formData.append("hardDriveSpace", gameData.diskSpace); 
+        formData.append("hardDriveSpace", gameData.diskSpace);
         formData.append("graphicsCard", gameData.videoCard);
 
         if (gameData.categoryIds && gameData.categoryIds.length > 0) {
-            formData.append("categoryIds", gameData.categoryIds.join(","));
+            formData.append('categoryIds', JSON.stringify(gameData.categoryIds));
         }
 
         if (gameData.coverImage instanceof File) {
@@ -77,28 +77,17 @@ const ApiGame = {
             formData.append("iconImage", gameData.iconImage);
         }
 
-        if (gameData.media && Array.isArray(gameData.media)) {
-            gameData.media.forEach((file, index) => {
-                if (file instanceof File) {
-                    formData.append(`midiaGame${index + 1}`, file);
-                }
-            });
+        for (let i = 0; i < gameData.screenshots.length; i++) {
+            formData.append(`screenshots_${i}`, gameData.screenshots[i]);
         }
 
         try {
-             const response = await ApiClient.put('/game', formData, {
+            await ApiClient.put('/game', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-
-            if (response.ok) {
-                return true;
-            } else {
-                const errorData = await response.json();
-                console.error("Erro no update:", errorData);
-                return false;
-            }
+            return true;
         } catch (error) {
             console.error("Erro de conexão:", error);
             return false;
@@ -137,7 +126,18 @@ const ApiGame = {
             console.error('Erro ao pegar detalhes do jogo:', error);
             return false;
         }
-    }
+    },
+    getMyGames: async (userId) => {
+        try {
+            const response = await ApiClient.get(
+                `/my-games?userId=${userId}`
+            );
+            return response.data.games;
+        } catch (error) {
+            console.error('Erro ao pegar jogos do usuário:', error);
+            return false;
+        }
+    },
 };
 
 export default ApiGame;

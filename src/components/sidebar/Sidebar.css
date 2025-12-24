@@ -10,6 +10,8 @@
     padding-top: 20px;
     flex-shrink: 0;
     gap: 50px;
+    position: relative;
+    z-index: 10;
     background: rgba(var(--accent), 0.2);
 }
 
@@ -64,7 +66,7 @@
     color: rgba(32, 37, 69, 0.9);
 }
 
-.active > .button-stitch {
+.active>.button-stitch {
     color: rgba(32, 37, 69, 0.9);
     background-color: hsl(210, 100%, 30%);
 }

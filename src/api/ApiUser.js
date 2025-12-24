@@ -33,7 +33,7 @@ const ApiUser = {
 
     logoutUser: async () => {
         try {
-            await ApiClient.get('/logout');
+            await ApiClient.delete('/logout');
             return true;
         } catch (error) {
             console.error('Erro no logout:', error);

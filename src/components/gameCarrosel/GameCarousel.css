@@ -1,0 +1,66 @@
+@import url('../../global.css');
+
+.game-carousel-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.game-carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  text-align: start;
+  margin-bottom: 15px;
+  padding: 0 5px;
+}
+
+.game-carousel-title {
+  font-size: 2.5rem;
+  color: var(--white);
+  margin: 0;
+}
+
+.game-carousel-subtitle {
+  font-size: 1.1rem;
+  color: #a0a0a0;
+  margin: 5px 0 0 0;
+}
+
+.game-carousel-arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.game-carousel-arrow-btn {
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.game-carousel-arrow-btn:hover {
+  background-color: var(--gray);
+}
+
+.game-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.game-carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.game-carousel-item {
+  box-sizing: border-box;
+  padding: 0 10px;
+}

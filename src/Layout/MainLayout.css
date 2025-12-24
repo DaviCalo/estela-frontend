@@ -1,0 +1,37 @@
+@import url('../global.css');
+
+.app-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main-content {
+    flex: 1;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    position: relative;
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: #17172B;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: #030347;
+    border-radius: 10px;
+}

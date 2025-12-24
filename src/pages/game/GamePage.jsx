@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from '../../components/sidebar/SidebarComponent.jsx';
 import GameFormDialog from "../../components/gameFormDialog/GameFormDialog.jsx";
 import GameTable from "../../components/gameTableRow/GameTable.jsx";
 import GameTableRow from "../../components/gameTableRow/GameTableRow.jsx";
 import ApiGame from "../../api/ApiGame.js";
-import CategoryDialog from "../../components/categoryDialog/CategoryDialog.jsx";
+import CategoryFormDialog from "../../components/categoryFormDialog/CategoryFormDialog.jsx";
 import "./GamePage.css";
 
 const GamePage = () => {
@@ -50,61 +49,62 @@ const GamePage = () => {
   };
 
   return (
-    <div className="game-container">
-      <div id="full">
-        <Sidebar activeItem="games" />
-        <div id="content">
-          <div className="header-gamepage">
-            <h1 className="title-page">Jogos Cadastrados</h1>
-            <div className="button-group-gamepage">
-              <button
-                className="edit-categ-button-group-gamepage"
-                onClick={() => {
-                  console.log("Botão clicado! Abrindo dialog...");
-                  setIsCatOpen(true);
-                }}
-              >
-                Editar Categorias
-              </button>
-              <button
-                className="add-game-button-group-gamepage"
-                onClick={() => setIsFormOpen(true)}
-              >
-                Adicionar Jogo
-              </button>
-            </div>
-          </div>
-          <div className="game-page-container">
-            <GameTable headers={tableHeaders}>
-              {games?.length > 0 ? (
-                games.map((gameItem) => (
-                  <GameTableRow
-                    key={gameItem.gameId || gameItem.id}
-                    data={gameItem}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                  />
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan="5"
-                    style={{ textAlign: "center", padding: "20px" }}
-                  >
-                    Nenhum jogo cadastrado.
-                  </td>
-                </tr>
-              )}
-            </GameTable>
-          </div>
+    <div>
+      <div className="header-gamepage">
+        <h1 className="title-page">Jogos Cadastrados</h1>
+        <div className="button-group-gamepage">
+          <button
+            className="edit-categ-button-group-gamepage"
+            onClick={() => {
+              console.log("Botão clicado! Abrindo dialog...");
+              setIsCatOpen(true);
+            }}
+          >
+            Editar Categorias
+          </button>
+          <button
+            className="add-game-button-group-gamepage"
+            onClick={() => setIsFormOpen(true)}
+          >
+            Adicionar Jogo
+          </button>
         </div>
+      </div>
+      <div className="game-page-container">
+        <GameTable headers={tableHeaders}>
+          {games?.length > 0 ? (
+            games.map((gameItem) => (
+              <GameTableRow
+                key={gameItem.gameId || gameItem.id}
+                data={gameItem}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" style={{ textAlign: "center", padding: "20px" }}>
+                Nenhum jogo cadastrado.
+              </td>
+            </tr>
+          )}
+        </GameTable>
       </div>
       <GameFormDialog
         isOpen={isFormOpen}
-        onClose={() => setIsFormOpen(false)}
+        onClose={() => {
+          setIsFormOpen(false);
+          setGameIdEdited(null);
+          setTimeout(() => {
+            fetchGames();
+          }, 1500);
+        }}
         gameId={gameIdEdited}
       />
-      <CategoryDialog isOpen={isCatOpen} onClose={() => setIsCatOpen(false)} />
+      <CategoryFormDialog
+        isOpen={isCatOpen}
+        onClose={() => setIsCatOpen(false)}
+      />
     </div>
   );
 };

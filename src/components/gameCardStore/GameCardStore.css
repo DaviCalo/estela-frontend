@@ -1,0 +1,107 @@
+@import url('../../global.css');
+
+.game-card-store {
+  background-color: #1e1b38;
+  border-radius: 16px;
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-card-store-image-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.game-card-store-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-card-store-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.game-card-store-title {
+  color: white;
+  font-size: 16px;
+  text-align: start;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: sans-serif;
+}
+
+.game-card-store-actions {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.game-card-store-buy-btn {
+  flex: 1;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  border: none;
+  border-radius: 8px;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  height: 35px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  white-space: nowrap;
+}
+
+.game-card-store-wishlist-btn {
+  width: 0;
+  height: 35px;
+  opacity: 0;
+  overflow: hidden;
+  background-color: #dcdcdc;
+  color: #1e1b38;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.game-card-store-wishlist-btn:hover {
+  background-color: white;
+}
+
+.game-card-store:hover .game-card-store-buy-btn {
+  background-color: #108a3e;
+  text-align: center;
+  padding: 0 10px;
+  font-size: 18px;
+}
+
+.game-card-store-buy-btn:hover {
+  background-color: #159c47;
+}
+
+.game-card-store:hover .game-card-store-wishlist-btn {
+  width: 40px;
+  opacity: 1;
+  margin-left: 10px;
+}

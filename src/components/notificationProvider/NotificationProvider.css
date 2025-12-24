@@ -1,0 +1,81 @@
+@import url('../../global.css');
+
+.notification-container {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 9999;
+    padding: 0 20px;
+}
+
+.notification-banner {
+    width: 100%;
+    max-width: 900px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.3s ease-out;
+    color: var(--white-pure); 
+}
+
+.notification-banner.error {
+    background-color: var(--notification-error); 
+}
+
+.notification-banner.success {
+    background-color: var(--notification-success); 
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.notification-message {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.notification-icon {
+    font-size: 1.2rem;
+    fill: var(--white-pure);
+    color: var(--white-pure);
+}
+
+.notification-close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.6;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+    padding: 0;
+}
+
+.notification-close-btn:hover {
+    opacity: 1;
+}
+
+.notification-close-btn svg path,
+.notification-close-btn path {
+    fill: var(--white-pure) !important;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

@@ -9,12 +9,17 @@
 
 :root {
   --background-color: radial-gradient(60.42% 42.19% at 50% 79.17%, #0B1950 0%, #110535 100%);
+  --background-pure: #110535;
   --secondary: #222559;
-  --white-pure:#FFFFFF;
+  --white-pure: #FFFFFF;
   --white: #C7C1E8;
   --accent: #455592;
   --gray: #5C5E79;
-  --blue:#1D4ED8;
+  --gray-dark: #1F2937;
+  --head-table: #374151;
+  --blue: #1D4ED8;
+  --notification-error: #DC2626;
+  --notification-success: #16A34A;
 }
 
 p,
@@ -37,12 +42,9 @@ h1 {
   font-size: 48px;
 }
 
-p {
-  font-size: 16px;
-}
-
 #root,
 #app,
+body,
 main {
   height: 100vh;
   width: 100vw;
@@ -85,7 +87,7 @@ main {
   background-color: #05122D;
 }
 
-.title-page{
+.title-page {
   color: var(--white-pure);
   font-family: "Gabarito", sans-serif;
   font-weight: 700;
@@ -93,5 +95,5 @@ main {
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }

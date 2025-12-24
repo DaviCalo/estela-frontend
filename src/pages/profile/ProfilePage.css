@@ -36,6 +36,10 @@
     }
 }
 
+#img-input-profile{
+    margin-right: 8px;
+}
+
 #img-holder {
     width: 10rem;
     height: 10rem;
@@ -100,7 +104,7 @@
     border-radius: 50px;
 }
 
-.button {
+.button-profile-page {
     background: none;
     border: none;
     color: var(--accent);
@@ -114,9 +118,10 @@
     cursor: pointer;
     border: 1px solid transparent;
     padding: 5px;
+    border: 1px solid transparent;
 }
 
-.button:hover {
+.button-profile-page:hover {
     border: 1px solid #fff;
     border-radius: 8px;
 }

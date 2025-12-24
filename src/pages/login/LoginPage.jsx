@@ -28,9 +28,7 @@ const LoginPage = () => {
     console.log("Dados submetidos:", { email, password });
     const response = await ApiAuth.login(email, password);
     if (response) {
-      navigate("/home");
-    } else {
-      alert("Falha no login. Verifique suas credenciais.");
+      navigate("/store");
     }
   };
 
@@ -43,7 +41,7 @@ const LoginPage = () => {
       nickname
     );
     if (isSuccess) {
-      navigate("/home");
+      navigate("/store");
     }
   };
 
@@ -171,10 +169,10 @@ const LoginPage = () => {
               </div>
               <Link to="/recuperar-senha">Esqueci minha senha</Link>
             </div>
-            <div className="confirm-button">
+            <div className="confirm-button-div">
               <button
                 type="submit"
-                className="button"
+                className="confirm-button"
                 onClick={handleSubmitLogin}
               >
                 Entrar
@@ -280,13 +278,13 @@ const LoginPage = () => {
                 </li>
               </ul>
             </div>
-            <div className="confirm-button register-button">
+            <div className="confirm-button-div register-button">
               <button
                 type="submit"
-                className="button"
+                className="confirm-button"
                 onClick={handleSubmitRegister}
               >
-                Entrar
+                Criar Conta
               </button>
             </div>
             <span className="text-small-regular">

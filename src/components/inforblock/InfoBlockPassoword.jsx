@@ -22,7 +22,7 @@ function InfoBlockPassoword({ label, name, value, onChange }) {
           value={value || ""}
           onChange={onChange}
           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-          minlength="8"
+          minLength="8"
         />
 
         <button

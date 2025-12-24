@@ -1,21 +1,22 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Apigame from "../../api/ApiGame.js";
-import InputTextFormGame from "./InputTextFormGame.jsx";
-import DefaultCoverImg from "../../assets/images/cover-game.png";
-import DefaultIconImg from "../../assets/images/icon-game.png";
-import DefaultMediaImg from "../../assets/images/media-game.png";
-import InputCategorySelectGame from "../inputCategoryGame/InputCategorySelectGame.jsx";
+import { useNotification } from "../notificationProvider/NotificationProvider.jsx";
+import FirstStepGameDialog from "./stepsGameDialog/FirstStepGameDialog.jsx";
+import SecondStepGameDialog from "./stepsGameDialog/SecondStepGameDialog.jsx";
+import ThirdStepGameDialog from "./stepsGameDialog/ThirdStepGameDialog.jsx";
+import FourthStepGameDialog from "./stepsGameDialog/FourthStepGameDialog.jsx";
+import { ReactComponent as CloseIcon } from "../../assets/icons/close.svg";
 import "./GameFormDialog.css";
 
 const initialGameData = {
   name: "",
   price: "",
   description: "",
-  caracteristics: "",
+  characteristics: "",
   coverImage: null,
   iconImage: null,
-  media: Array(6).fill(null),
+  screenshots: Array(6).fill(null),
   categoryIds: [],
   operatingSystem: "",
   processor: "",
@@ -25,17 +26,24 @@ const initialGameData = {
 };
 
 const GameFormDialog = ({ isOpen, onClose, gameId }) => {
+  const { showNotification } = useNotification();
   const [indexStep, setIndexStep] = useState(0);
-  const coverInputRef = useRef(null);
-  const iconInputRef = useRef(null);
-  const [previewCoverUrl, setPreviewCoverUrl] = useState(DefaultCoverImg);
-  const [previewUrlIcon, setPreviewUrlIcon] = useState(DefaultIconImg);
-  const mediaInputRefs = useRef([]);
-  const [mediaPreviews, setMediaPreviews] = useState(
-    Array(6).fill(DefaultMediaImg)
+  const [previewCoverUrl, setPreviewCoverUrl] = useState(null);
+  const [previewUrlIcon, setPreviewUrlIcon] = useState(null);
+  const [screenshotsPreviews, setScreenshotsPreviews] = useState(
+    Array(6).fill(null)
   );
 
   const [gameData, setGameData] = useState(initialGameData);
+
+  const onCloseDialog = () => {
+    setPreviewCoverUrl(null);
+    setPreviewUrlIcon(null);
+    setScreenshotsPreviews(Array(6).fill(null));
+    setGameData(initialGameData);
+    setIndexStep(0);
+    onClose();
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -43,13 +51,12 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
         const fetchGameDetails = async () => {
           try {
             const response = await Apigame.getGameDetailsById(gameId);
-            const data = response.game || response;
-
+            const data = response;
             setGameData({
               name: data.name || "",
               price: data.price || "",
               description: data.description || "",
-              caracteristics: data.characteristics || "",
+              characteristics: data.characteristics || "",
               operatingSystem: data.operatingSystem || "",
               processor: data.processor || "",
               memory: data.memory || "",
@@ -58,51 +65,71 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
               categoryIds: data.categoryIds || [],
               coverImage: null,
               iconImage: null,
-              media: Array(6).fill(null),
+              screenshots: Array(6).fill(null),
             });
 
-            if (data.urlCover) setPreviewCoverUrl(Apigame.getUrlCover(data.urlCover));
-            if (data.urlIcon) setPreviewUrlIcon(Apigame.getUrlCover(data.urlIcon));
+            if (data.urlCover) {
+              setGameData((prev) => ({
+                ...prev,
+                coverImage: Apigame.getMediaUrl(data.urlCover),
+              }));
+              setPreviewCoverUrl(Apigame.getMediaUrl(data.urlCover));
+            }
+
+            if (data.urlIcon) {
+              setGameData((prev) => ({
+                ...prev,
+                iconImage: Apigame.getMediaUrl(data.urlIcon),
+              }));
+              setPreviewUrlIcon(Apigame.getMediaUrl(data.urlIcon));
+            }
+
+            if (data.urlsScreenshots && data.urlsScreenshots.length > 0) {
+              for (let i = 0; i < data.urlsScreenshots.length; i++) {
+                setGameData((prev) => ({
+                  ...prev,
+                  screenshots: data.urlsScreenshots.map((url) =>
+                    Apigame.getMediaUrl(url)
+                  ),
+                }));
+                setScreenshotsPreviews((prev) => {
+                  const newPreviews = [...prev];
+                  newPreviews[i] = Apigame.getMediaUrl(data.urlsScreenshots[i]);
+                  return newPreviews;
+                });
+              }
+            }
           } catch (error) {
             console.error("Erro ao carregar detalhes do jogo:", error);
-            alert("Erro ao carregar dados do jogo.");
           }
         };
         fetchGameDetails();
-      } else {
-        setGameData(initialGameData);
-        setPreviewCoverUrl(DefaultCoverImg);
-        setPreviewUrlIcon(DefaultIconImg);
-        setMediaPreviews(Array(6).fill(DefaultMediaImg));
-        setIndexStep(0);
       }
     }
   }, [isOpen, gameId]);
 
   useEffect(() => {
     return () => {
-      if (
-        previewCoverUrl &&
-        previewCoverUrl !== DefaultCoverImg &&
-        !previewCoverUrl.startsWith("http")
-      ) {
+      if (previewCoverUrl && !previewCoverUrl.startsWith("http")) {
         URL.revokeObjectURL(previewCoverUrl);
       }
-      if (
-        previewUrlIcon &&
-        previewUrlIcon !== DefaultIconImg &&
-        !previewUrlIcon.startsWith("http")
-      ) {
+    };
+  }, [previewCoverUrl]);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrlIcon && !previewUrlIcon.startsWith("http")) {
         URL.revokeObjectURL(previewUrlIcon);
       }
     };
-  }, [previewCoverUrl, previewUrlIcon]);
+  }, [previewUrlIcon]);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e) => {
     try {
       let success;
+
       if (gameId) {
         success = await Apigame.updateGame(gameId, gameData);
       } else {
@@ -110,12 +137,11 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
       }
 
       if (success) {
-        alert(
-          gameId
-            ? "Jogo atualizado com sucesso!"
-            : "Jogo cadastrado com sucesso!"
+        showNotification(
+          `Jogo ${gameId ? "atualizado" : "cadastrado"} com sucesso!`,
+          "success"
         );
-        onClose();
+        onCloseDialog();
       }
     } catch (err) {
       console.error(err);
@@ -123,11 +149,83 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
     }
   };
 
+  const validateStep = () => {
+    let isValid = true;
+
+    switch (indexStep) {
+      case 0:
+        if (!gameData.name.trim()) {
+          showNotification("O campo 'Nome' é obrigatório.", "error");
+          isValid = false;
+        } else if (!gameData.description.trim()) {
+          showNotification("O campo 'Descrição' é obrigatório.", "error");
+          isValid = false;
+        } else if (!gameData.price.toString().trim() || gameData.price < 0) {
+          showNotification(
+            "O campo 'Preço' é obrigatório ou está com valor negativo.",
+            "error"
+          );
+          isValid = false;
+        } else if (!gameData.coverImage) {
+          showNotification("A imagem de capa é obrigatória.", "error");
+          isValid = false;
+        }
+        break;
+      case 1:
+        if (!gameData.characteristics.trim()) {
+          showNotification("O campo 'Características' é obrigatório.", "error");
+          isValid = false;
+        } else if (gameData.categoryIds.length === 0) {
+          showNotification("Selecione pelo menos uma categoria.", "error");
+          isValid = false;
+        } else if (!gameData.iconImage) {
+          showNotification("A imagem do ícone é obrigatória.", "error");
+          isValid = false;
+        }
+        break;
+      case 2:
+        if (gameData.screenshots.every((screenshots) => screenshots === null)) {
+          showNotification("Adicione pelo menos uma mídia do jogo.", "error");
+          isValid = false;
+        }
+
+        break;
+      case 3:
+        if (!gameData.operatingSystem.trim()) {
+          showNotification(
+            "O campo 'Sistema Operacional' é obrigatório.",
+            "error"
+          );
+          isValid = false;
+        } else if (!gameData.processor.trim()) {
+          showNotification("O campo 'Processador' é obrigatório.", "error");
+          isValid = false;
+        } else if (!gameData.memory.trim()) {
+          showNotification("O campo 'Memória' é obrigatório.", "error");
+          isValid = false;
+        } else if (!gameData.diskSpace.trim()) {
+          showNotification("O campo 'Espaço de Disco' é obrigatório.", "error");
+          isValid = false;
+        } else if (!gameData.videoCard.trim()) {
+          showNotification("O campo 'Placa de Vídeo' é obrigatório.", "error");
+          isValid = false;
+        }
+        break;
+      default:
+        isValid = true;
+    }
+    return isValid;
+  };
+
   const onNext = () => {
     if (indexStep !== 3) {
-      setIndexStep(indexStep + 1);
+      if (validateStep()) {
+        setIndexStep(indexStep + 1);
+      }
     } else {
-      handleSubmit();
+      if (validateStep()) {
+        handleSubmit();
+      }
     }
   };
 
@@ -137,20 +235,7 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
     }
   };
 
-  const handleImageCoverClick = () => {
-    if (coverInputRef.current) {
-      coverInputRef.current.click();
-    }
-  };
-
-  const handleImageIconClick = () => {
-    if (iconInputRef.current) {
-      iconInputRef.current.click();
-    }
-  };
-
-  const handleFileCoverChange = (event) => {
-    const file = event.target.files[0];
+  const handleFileCoverChange = (file) => {
     if (file) {
       setGameData({ ...gameData, coverImage: file });
       const objectUrl = URL.createObjectURL(file);
@@ -158,8 +243,7 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
     }
   };
 
-  const handleFileIconChange = (event) => {
-    const file = event.target.files[0];
+  const handleFileIconChange = (file) => {
     if (file) {
       setGameData({ ...gameData, iconImage: file });
       const objectUrl = URL.createObjectURL(file);
@@ -167,320 +251,109 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
     }
   };
 
-  const handleMediaClick = (index) => {
-    if (mediaInputRefs.current[index]) {
-      mediaInputRefs.current[index].click();
+  const handleFileScreenshotsChange = (file, index) => {
+    if (file) {
+      const newMediaFiles = [...gameData.screenshots];
+      newMediaFiles[index] = file;
+      setGameData({ ...gameData, screenshots: newMediaFiles });
+
+      const newPreviews = [...screenshotsPreviews];
+      const objectUrl = URL.createObjectURL(file);
+      newPreviews[index] = objectUrl;
+      setScreenshotsPreviews(newPreviews);
     }
   };
 
-  const handleMediaFileChange = (event, index) => {
-    const file = event.target.files[0];
-    if (file) {
-      const newMediaFiles = [...gameData.media];
-      newMediaFiles[index] = file;
-      setGameData({ ...gameData, media: newMediaFiles });
-
-      const newPreviews = [...mediaPreviews];
-      const objectUrl = URL.createObjectURL(file);
-      newPreviews[index] = objectUrl;
-      setMediaPreviews(newPreviews);
+  const formatCurrencyInput = (value) => {
+    const onlyDigits = value.replace(/\D/g, "");
+    if (onlyDigits === "") {
+      return "";
     }
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      minimumFractionDigits: 2,
+    }).format(parseFloat(onlyDigits) / 100);
   };
 
   return ReactDOM.createPortal(
-    <div className="game-form-overlay" onClick={onClose}>
+    <div className="game-form-overlay" onClick={onCloseDialog}>
       <div className="game-form-card" onClick={(e) => e.stopPropagation()}>
         <div className="game-form-header">
           <p className="title-dialog">
             {gameId ? "Editar Jogo" : "Adicionar Jogo"}
           </p>
-          <button className="close-x" onClick={onClose}>
-            &times;
+          <button className="bnt-close-game-dialog" onClick={onCloseDialog}>
+            <CloseIcon />
           </button>
         </div>
         <div className="line"></div>
         <div className="game-form-content">
           {indexStep === 0 && (
-            <div className="step-content-dialog">
-              <div className="title-step-content-dialog">Detalhes do Jogo</div>
-              <div className="fields-step-content-dialog">
-                <div className="dialog-game-content-left">
-                  <InputTextFormGame
-                    label="Nome (obrigatório)"
-                    placeholder="Digite o nome do jogo"
-                    name="name"
-                    value={gameData.name}
-                    onChange={(e) =>
-                      setGameData({ ...gameData, name: e.target.value })
-                    }
-                    width="100%"
-                  />
-                  <InputTextFormGame
-                    label="Descrição (obrigatório)"
-                    placeholder="Digite a descrição do jogo"
-                    name="description"
-                    value={gameData.description}
-                    onChange={(e) =>
-                      setGameData({ ...gameData, description: e.target.value })
-                    }
-                    width="100%"
-                    isTextArea={true}
-                  />
-                  <InputTextFormGame
-                    label="Preço (obrigatório)"
-                    placeholder="Digite o preço do jogo"
-                    name="price"
-                    value={gameData.price}
-                    onChange={(e) =>
-                      setGameData({ ...gameData, price: e.target.value })
-                    }
-                    width="100%"
-                    typer="number"
-                  />
-                </div>
-
-                <div className="fields-step-content-dialog-cover-image">
-                  <div className="cover-game-input">
-                    <img
-                      src={previewCoverUrl}
-                      alt="cover"
-                      id="cover-game-holder"
-                      onClick={handleImageCoverClick}
-                      title="Clique para alterar a capa do jogo"
-                    />
-                    <input
-                      type="file"
-                      ref={coverInputRef}
-                      onChange={handleFileCoverChange}
-                      style={{ display: "none", overflow: "hidden" }}
-                      accept="image/png, image/jpeg, image/gif"
-                    />
-                  </div>
-                  <div className="dialog-game-content-right">
-                    <p className="dialog-game-content-right-title">
-                      Recomendações
-                    </p>
-                    <div className="cover-image-instruction-item">
-                      <p>
-                        <span className="bullet-point">&#8226;</span> Faça sua
-                        capa com 1280 por 720 pixels (proporção 16:9).
-                      </p>
-                      <p>
-                        <span className="bullet-point">&#8226;</span> Verifique
-                        se a sua capa tem menos de 50 MB.
-                      </p>
-                      <p>
-                        <span className="bullet-point">&#8226;</span> Use um
-                        formato de arquivo JPG, PNG ou AI.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <FirstStepGameDialog
+              nameGame={gameData.name}
+              onChangeName={(e) =>
+                setGameData({ ...gameData, name: e.target.value })
+              }
+              descriptionGame={gameData.description}
+              onChangeDescription={(e) =>
+                setGameData({ ...gameData, description: e.target.value })
+              }
+              priceGame={formatCurrencyInput(gameData.price.toString())}
+              onChangePrice={(e) => {
+                const formattedValue = formatCurrencyInput(e.target.value);
+                setGameData({ ...gameData, price: formattedValue });
+              }}
+              previewCoverUrl={previewCoverUrl}
+              onCoverChange={handleFileCoverChange}
+            />
           )}
+
           {indexStep === 1 && (
-            <div className="step-content-dialog">
-              <div className="title-step-content-dialog">
-                Características do Jogo
-              </div>
-              <div className="fields-step-content-dialog">
-                <div className="dialog-game-content-left">
-                  <InputTextFormGame
-                    label="Características (obrigatório)"
-                    placeholder="Digite as características do jogo"
-                    name="caracteristics"
-                    value={gameData.caracteristics}
-                    onChange={(e) =>
-                      setGameData({
-                        ...gameData,
-                        caracteristics: e.target.value,
-                      })
-                    }
-                    width="100%"
-                    isTextArea={true}
-                  />
-                  <InputCategorySelectGame
-                    label="Categorias"
-                    placeholder="Selecione as categorias"
-                    required={true}
-                    selectedIds={gameData.categoryIds}
-                    onChange={(newIds) =>
-                      setGameData({ ...gameData, categoryIds: newIds })
-                    }
-                  />
-                </div>
-
-                <div className="fields-step-content-dialog-cover-image">
-                  <div className="cover-game-input">
-                    <img
-                      src={previewCoverUrl}
-                      alt="cover"
-                      id="cover-game-holder"
-                      onClick={handleImageCoverClick}
-                      title="Clique para alterar a capa do jogo"
-                    />
-                    <input
-                      type="file"
-                      ref={coverInputRef}
-                      onChange={handleFileCoverChange}
-                      style={{ display: "none", overflow: "hidden" }}
-                      accept="image/png, image/jpeg, image/gif"
-                    />
-                  </div>
-                  <div className="dialog-game-content-right">
-                    <p className="dialog-game-content-right-title">
-                      {gameData.name}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <SecondStepGameDialog
+              characteristicsGame={gameData.characteristics}
+              onChangeCharacteristics={(e) =>
+                setGameData({ ...gameData, characteristics: e.target.value })
+              }
+              categoryIdsGame={gameData.categoryIds}
+              onChangeCategoryIds={(newIds) =>
+                setGameData({ ...gameData, categoryIds: newIds })
+              }
+              previewIconUrl={previewUrlIcon}
+              onIconChange={handleFileIconChange}
+            />
           )}
+
           {indexStep === 2 && (
-            <div className="step-content-dialog">
-              <div className="title-step-content-dialog">Mídias do Jogo</div>
-              <div
-                className="fields-step-content-dialog"
-                style={{ alignItems: "flex-start", paddingTop: "10px" }}
-              >
-                <div
-                  className="dialog-game-content-left"
-                  style={{ width: "100%" }}
-                >
-                  <div className="media-grid-container-game">
-                    {mediaPreviews.map((preview, index) => (
-                      <div key={index} className="item-media-grid-game">
-                        <img
-                          src={preview}
-                          alt={`media-${index}`}
-                          id={`medias-game-holder-${index}`}
-                          onClick={() => handleMediaClick(index)}
-                          title={`Clique para adicionar a mídia ${index + 1}`}
-                          className="img-item-grid-container-game"
-                        />
-
-                        <input
-                          type="file"
-                          ref={(el) => (mediaInputRefs.current[index] = el)}
-                          onChange={(e) => handleMediaFileChange(e, index)}
-                          style={{ display: "none" }}
-                          accept="image/png, image/jpeg, image/gif"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div
-                  className="fields-step-content-dialog-cover-image"
-                  style={{ display: "none" }}
-                ></div>
-              </div>
-            </div>
+            <ThirdStepGameDialog
+              screenshotsPreviews={screenshotsPreviews}
+              onScreenshotChange={handleFileScreenshotsChange}
+            />
           )}
-          {indexStep === 3 && (
-            <div className="step-content-dialog">
-              <div className="title-step-content-dialog">
-                Especificações Mínimas
-              </div>
-              <div className="fields-step-content-dialog">
-                <div className="dialog-game-content-left">
-                  <InputTextFormGame
-                    label="Sistema Operacional (obrigatório)"
-                    placeholder="Adicione o sistema operacional mínimo para rodar seu jogo."
-                    name="operatingSystem"
-                    value={gameData.operatingSystem}
-                    onChange={(e) =>
-                      setGameData({
-                        ...gameData,
-                        operatingSystem: e.target.value,
-                      })
-                    }
-                    width="100%"
-                  />
-                  <InputTextFormGame
-                    label="Processador (obrigatório)"
-                    placeholder="Adicione o processador mínimo para rodar seu jogo."
-                    name="processor"
-                    value={gameData.processor}
-                    onChange={(e) =>
-                      setGameData({ ...gameData, processor: e.target.value })
-                    }
-                    width="100%"
-                  />
-                  <InputTextFormGame
-                    label="Memória (obrigatório)"
-                    placeholder="Digite a memória mínima para rodar seu jogo."
-                    name="memory"
-                    value={gameData.memory}
-                    onChange={(e) =>
-                      setGameData({ ...gameData, memory: e.target.value })
-                    }
-                    width="100%"
-                  />
-                  <InputTextFormGame
-                    label="Espaço de Disco (obrigatório)"
-                    placeholder="Digite o espaço de disco mínimo para rodar seu jogo."
-                    name="diskSpace"
-                    value={gameData.diskSpace}
-                    onChange={(e) =>
-                      setGameData({ ...gameData, diskSpace: e.target.value })
-                    }
-                    width="100%"
-                  />
-                  <InputTextFormGame
-                    label="Placa de Vídeo (obrigatório)"
-                    placeholder="Adicione o placa de vídeo mínimo para rodar seu jogo."
-                    name="videoCard"
-                    value={gameData.videoCard}
-                    onChange={(e) =>
-                      setGameData({ ...gameData, videoCard: e.target.value })
-                    }
-                    width="100%"
-                  />
-                </div>
 
-                <div className="fields-step-content-dialog-cover-image">
-                  <div className="icon-game-input">
-                    <img
-                      src={previewUrlIcon}
-                      alt="icon"
-                      id="icon-game-holder"
-                      onClick={handleImageIconClick}
-                      title="Clique para alterar o ícone do jogo"
-                    />
-                    <input
-                      type="file"
-                      ref={iconInputRef}
-                      onChange={handleFileIconChange}
-                      style={{ display: "none", overflow: "hidden" }}
-                      accept="image/png, image/jpeg, image/gif"
-                    />
-                  </div>
-                  <div className="dialog-game-content-right">
-                    <p className="dialog-game-content-right-title">
-                      Recomendações
-                    </p>
-                    <div className="cover-image-instruction-item">
-                      <p>
-                        <span className="bullet-point">&#8226;</span> Faça seu
-                        ícone na proporção 1:1
-                      </p>
-                      <p>
-                        <span className="bullet-point">&#8226;</span> Seu ícone
-                        aparecerá na pagina principal dos seu jogadores,
-                        recomendamos escolher com carinho.
-                      </p>
-                      <p>
-                        <span className="bullet-point">&#8226;</span> Use um
-                        formato de arquivo JPG, PNG ou AI.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {indexStep === 3 && (
+            <FourthStepGameDialog
+              operatingSystemGame={gameData.operatingSystem}
+              onChangeOperatingSystem={(value) =>
+                setGameData({ ...gameData, operatingSystem: value })
+              }
+              processorGame={gameData.processor}
+              onChangeProcessor={(value) =>
+                setGameData({ ...gameData, processor: value })
+              }
+              memoryGame={gameData.memory}
+              onChangeMemory={(value) =>
+                setGameData({ ...gameData, memory: value })
+              }
+              diskSpaceGame={gameData.diskSpace}
+              onChangeDiskSpace={(value) =>
+                setGameData({ ...gameData, diskSpace: value })
+              }
+              videoCardGame={gameData.videoCard}
+              onChangeVideoCard={(value) =>
+                setGameData({ ...gameData, videoCard: value })
+              }
+            />
           )}
         </div>
         <div className="line"></div>
@@ -491,11 +364,14 @@ const GameFormDialog = ({ isOpen, onClose, gameId }) => {
           </p>
           <div>
             {indexStep > 0 ? (
-              <button className="back-btn game-form-dialog-game" onClick={onBack}>
-                Cancelar
+              <button
+                className="button-game-form-dialog-game-2"
+                onClick={onBack}
+              >
+                Voltar
               </button>
             ) : null}
-            <button className="next-btn game-form-dialog-game" onClick={onNext}>
+            <button className="button-game-form-dialog-game" onClick={onNext}>
               {indexStep === 3
                 ? gameId
                   ? "Atualizar"
