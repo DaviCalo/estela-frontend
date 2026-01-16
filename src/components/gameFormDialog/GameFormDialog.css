@@ -1,0 +1,166 @@
+@import url('../../global.css');
+
+.game-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.game-form-card {
+    background: var(--background-color);
+    border-radius: 12px;
+    width: 75%;
+    height: 90%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.game-form-header,
+.game-form-footer {
+    display: flex;
+    align-items: center;
+    width: 96%;
+    height: 5%;
+    justify-content: space-between;
+}
+
+.game-form-content {
+    display: flex;
+    align-items: center;
+    width: 96%;
+    height: 79%;
+    justify-content: center;
+}
+
+.title-dialog {
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.terms-text {
+    color: var(--white);
+    font-size: 0.9rem;
+}
+
+.stepper-bar {
+    height: 12%;
+}
+
+
+.dialog-game-content-right-2 {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+}
+
+
+
+#cover-game-holder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+
+
+.cover-image-instruction-item,
+.cover-image-instruction-item>p {
+    margin: 0;
+    padding: 0;
+    color: var(--white);
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+
+.item-media-grid-game {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.icon-game-input {
+    width: 30%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px dashed var(--white);
+    overflow: hidden;
+}
+
+#icon-game-holder {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.button-game-form-dialog-game {
+    background-color: var(--white);
+    color: black;
+    border: none;
+    border-radius: 24px;
+    padding: 10px 15px;
+    margin: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.button-game-form-dialog-game-2 {
+    background-color: transparent;
+    color: var(--white);
+    border: none;
+    border-radius: 24px;
+    padding: 10px 15px;
+    margin: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.button-game-form-dialog-game-2:hover {
+    border: 1px solid var(--white);
+}
+
+.bnt-close-game-dialog {
+    background: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+
+.bnt-close-game-dialog:hover {
+    border: 1px solid var(--white);
+}

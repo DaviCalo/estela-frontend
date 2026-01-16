@@ -1,0 +1,82 @@
+.stepper-container {
+  position: relative;
+}
+
+.stepper-line {
+  position: absolute;
+  top: 72px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: #3a3a4d;
+  z-index: 1;
+}
+
+.steps-wrapper {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.step-label {
+  color: #8e8e9e;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.step-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #1a1a2e;
+  border: 2px solid #3a3a4d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active .step-label { color: #ffffff; }
+.active .step-circle {
+  border-color: #b1b1f1;
+  box-shadow: 0 0 10px #b1b1f1;
+}
+.active .inner-circle {
+  width: 12px;
+  height: 12px;
+  background: #b1b1f1;
+  border-radius: 50%;
+}
+
+.completed .step-circle {
+  background: #b1b1f1;
+  border-color: #b1b1f1;
+}
+.check-icon { color: #1a1a2e; font-weight: bold; }
+
+/* Nome num passo inativo (cor apagada) */
+.step-label {
+  color: #565666; /* Um cinza escuro/azulado conforme a imagem */
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+/* Nome no passo ATUAL (Fica branco/claro) */
+.step-item.active .step-label {
+  color: #ffffff; /* Branco puro para destacar */
+}
+
+/* Nome nos passos já CONCLUÍDOS */
+.step-item.completed .step-label {
+  color: #b1b1f1; /* Podes usar a cor lilás para indicar que já passou por ali */
+}

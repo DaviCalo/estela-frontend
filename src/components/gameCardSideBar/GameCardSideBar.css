@@ -1,0 +1,19 @@
+@import url('../../global.css');
+
+.game-card {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    background-color: rgba(var(--secondary), 0.2);
+    color: rgb(var(--white));
+}
+
+.game-card-cover {
+    width: 50px;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    overflow: hidden;
+}

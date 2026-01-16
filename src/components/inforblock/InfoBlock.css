@@ -1,0 +1,47 @@
+@import url('../../global.css');
+
+.info-block {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    justify-content: flex-start;
+    gap: 6px;
+}
+
+.label {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 800;
+    text-align: left;
+}
+
+.info-block-input {
+    padding: 8px 10px;
+    border: none;
+    background-color: var(--secondary);
+    color: var(--white);
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.input-container-passoword {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 55%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  color: var(--accent);
+  z-index: 10;
+}

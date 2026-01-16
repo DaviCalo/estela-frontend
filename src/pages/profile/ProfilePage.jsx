@@ -1,0 +1,302 @@
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
+import { useNavigate } from "react-router-dom";
+import { ReactComponent as PencilIcon } from "../../assets/icons/pencil.svg";
+import { ReactComponent as IconTrash } from "../../assets/icons/trash.svg";
+import { ReactComponent as IconLogout } from "../../assets/icons/arrow-out-right-square-half.svg";
+import InfoBlock from "../../components/inforblock/InfoBlock.jsx";
+import LongGameCard from "../../components/longCardGame/longCardGame.jsx";
+import InfoBlockPassoword from "../../components/inforblock/InfoBlockPassoword.jsx";
+import ConfirmDialog from "../../components/confirmDialog/ConfirmDialog.jsx";
+import LocalStorageManager from "../../utils/LocalStorageManager.js";
+import ApiUser from "../../api/ApiUser.js";
+import ApiGame from "../../api/ApiGame.js";
+import DefaultProfile from "../../assets/images/default.png";
+import { ReactComponent as WarningIcon } from "../../assets/icons/alert-triangle.svg";
+import "./ProfilePage.css";
+
+const ProfilePage = () => {
+  const [userId] = useState(
+    LocalStorageManager.getLoggedInUserFromLocalStorage().userid || ""
+  );
+  const [profileData, setProfileData] = useState(
+    ApiUser.getProfilePhoto(userId)
+  );
+  const [listOfMyGames, setListOfMyGames] = useState([]);
+  const [userName, setUserName] = useState(null);
+  const [userNick, setUserNick] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
+  const [userPassword, setUserPassword] = useState(null);
+  const fileInputRef = useRef(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const navigator = useNavigate();
+
+  const handleImageClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const openDialogOpen = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleDialogAction = (actionType) => {
+    if (actionType === "confirm") {
+      deleteAccountUser();
+    } else {
+      setIsDialogOpen(false);
+    }
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      handleImageUpload(file);
+    }
+  };
+
+  const handleImageUpload = async (file) => {
+    await ApiUser.updateProfilePhoto(userId, file)
+      .then(() => {
+        setProfileData(ApiUser.getProfilePhoto(userId));
+      })
+      .catch((err) => {
+        alert("Falha ao atualizar a foto.");
+        if (fileInputRef.current) {
+          fileInputRef.current.value = null;
+        }
+      });
+  };
+
+  const handleNameChange = (e) => {
+    setUserName(e.target.value);
+  };
+
+  const handleNickNameChange = (e) => {
+    setUserNick(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setUserEmail(e.target.value);
+  };
+
+  const handlePassordChange = (e) => {
+    setUserPassword(e.target.value);
+  };
+
+  const updateInformationUser = async (event) => {
+    event.preventDefault();
+    ApiUser.updateUser(userId, userEmail, userPassword, userName, userNick)
+      .then((e) => {
+        setInfomationUser();
+      })
+      .catch((err) => {
+        console.error("Erro ao atualizar dados do perfil:", err);
+      });
+  };
+
+  const logoutUser = async (event) => {
+    event.preventDefault();
+    ApiUser.logoutUser()
+      .then((e) => {
+        LocalStorageManager.clearUserDataFromLocalStorage();
+        navigator("/login");
+      })
+      .catch((err) => {
+        console.error("Erro ao atualizar dados do perfil:", err);
+      });
+  };
+
+  const deleteAccountUser = async () => {
+    ApiUser.deleteAccount(userId)
+      .then((e) => {
+        LocalStorageManager.clearUserDataFromLocalStorage();
+        navigator("/login");
+      })
+      .catch((err) => {
+        console.error("Erro ao atualizar dados do perfil:", err);
+      });
+  };
+
+  const setInfomationUser = useCallback(async () => {
+    if (!userId) return;
+    await ApiUser.getUserById(userId)
+      .then((data) => {
+        setUserName(data.name);
+        setUserNick(data.nickname);
+        setUserEmail(data.email);
+        setUserPassword(data.password);
+      })
+      .catch((err) => {
+        console.error("Erro ao buscar dados do perfil:", err);
+      });
+    await ApiGame.getMyGames(userId)
+      .then((e) => {
+        setListOfMyGames(e);
+      })
+      .catch((err) => {
+        console.error("Erro ao pegar os jogos do usuario", err);
+      });
+  }, [userId]);
+
+  useEffect(() => {
+    if (!userId) {
+      navigator("/login");
+      return;
+    } else {
+      setInfomationUser();
+    }
+  }, [userId, navigator, setInfomationUser]);
+
+  const handleCardClick = (nameGame) => {
+    const slug = nameGame
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    navigator(`/game/${encodeURIComponent(slug)}`);
+  };
+
+  // --- PARTE ALTERADA ---
+  const groupedGames = useMemo(() => {
+    const groups = {};
+
+    listOfMyGames.forEach((game) => {
+      const date = new Date(game.dataSale);
+
+      // Adicionado year: "numeric" para exibir o ano
+      const monthKey = date
+        .toLocaleDateString("pt-BR", { month: "long", year: "numeric" })
+        .toUpperCase();
+
+      if (!groups[monthKey]) {
+        groups[monthKey] = [];
+      }
+      groups[monthKey].push(game);
+    });
+
+    return groups;
+  }, [listOfMyGames]);
+
+  return (
+    <div>
+      <div id="namecard">
+        <div id="img-input-profile">
+          <img
+            src={profileData || DefaultProfile}
+            alt="Profile"
+            id="img-holder"
+            onClick={handleImageClick}
+            title="Clique para alterar a imagem"
+          />
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+            accept="image/png, image/jpeg, image/gif"
+          />
+        </div>
+        <div id="information-names">
+          <p id="user-nickname">{userNick}</p>
+          <p id="user-name">{userName}</p>
+        </div>
+      </div>
+      <div className="div-info-blocks-user">
+        <div className="top-info-blocks-user">
+          <p>Informações pessoais</p>
+          <button
+            onClick={updateInformationUser}
+            className="button-profile-page"
+          >
+            <PencilIcon />
+            Salvar edição
+          </button>
+        </div>
+        <div className="line"></div>
+        <div className="info-blocks-user">
+          <InfoBlock
+            label="Nome Completo:"
+            name="name"
+            value={userName}
+            onChange={handleNameChange}
+            type="text"
+          />
+          <InfoBlock
+            label="Nickname:"
+            name="nickname"
+            value={userNick}
+            onChange={handleNickNameChange}
+            type="text"
+          />
+          <InfoBlock
+            label="Email:"
+            name="email"
+            value={userEmail}
+            onChange={handleEmailChange}
+            type="email"
+          />
+          <InfoBlockPassoword
+            label="Senha:"
+            name="senha"
+            value={userPassword}
+            onChange={handlePassordChange}
+          />
+        </div>
+        <div className="line" style={{ margin: "25px 0px" }}></div>
+        <div className="actions-users">
+          <button onClick={logoutUser} className="button-profile-page">
+            <IconLogout />
+            Logout
+          </button>
+          <button onClick={openDialogOpen} className="button-profile-page">
+            <IconTrash />
+            Deletar conta
+          </button>
+        </div>
+      </div>
+      <div id="shopping-list-container">
+        <p>Histórico de Compras</p>
+        <div className="line"></div>
+
+        {Object.keys(groupedGames).length > 0 ? (
+          Object.keys(groupedGames).map((month) => (
+            <div key={month} className="month-group">
+              <h3 className="month-header">{month}</h3>
+              <div className="games-list">
+                {groupedGames[month].map((game) => (
+                  <LongGameCard
+                    key={game.gameId}
+                    onNavigate={handleCardClick}
+                    game={game}
+                  />
+                ))}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="empty-history">Nenhuma compra realizada ainda.</p>
+        )}
+      </div>
+
+      <ConfirmDialog
+        header="Deletar conta permanentemente"
+        isOpen={isDialogOpen}
+        onClose={handleDialogAction}
+        confirmLabel="Excluir"
+        icon={<WarningIcon />}
+      >
+        <p>Tem certeza de que deseja excluir sua conta?</p>
+      </ConfirmDialog>
+    </div>
+  );
+};
+
+export default ProfilePage;

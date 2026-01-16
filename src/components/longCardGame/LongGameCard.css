@@ -1,0 +1,61 @@
+/* Container Principal */
+.long-card-game {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  padding: 8px 16px 8px 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.long-card-game:hover {
+  background-color: #252540;
+  transform: translateY(-2px);
+}
+
+/* Wrapper da Imagem */
+.long-card-game-img-wrapper {
+  width: 120px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 16px;
+}
+
+/* Imagem */
+.long-card-game-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Área do Texto (Nome) */
+.long-card-game-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.long-card-game-name {
+  color: #ffffff;
+  font-family: "Gabarito", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.long-card-game-price {
+  color: #C7C1E8;
+  font-family: "Gabarito", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-left: 20px;
+  white-space: nowrap;
+}
